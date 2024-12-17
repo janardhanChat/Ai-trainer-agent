@@ -21,12 +21,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${fustat.className}`}>
-        <DailyProvider>
         <ConversationProvider>
           <Toaster />
           {children}
         </ConversationProvider>
-        </DailyProvider>
       </body>
     </html>
   );
