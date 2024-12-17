@@ -1,6 +1,9 @@
 import { Fustat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import "react-loading-skeleton/dist/skeleton.css";
+import { ConversationProvider } from "@/contexts/ConversationContext";
+import { DailyProvider } from "@daily-co/daily-react";
 
 const fustat = Fustat({
   weight: ['200', '300', '400', '500', '600', '700' , '800'],
@@ -17,9 +20,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Toaster/>
-      <body className={`${fustat.className} `}>
-        {children}
+      <body className={`${fustat.className}`}>
+        <DailyProvider>
+        <ConversationProvider>
+          <Toaster />
+          {children}
+        </ConversationProvider>
+        </DailyProvider>
       </body>
     </html>
   );
