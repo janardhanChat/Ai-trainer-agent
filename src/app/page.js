@@ -7,7 +7,7 @@ import Button from "@/components/common/Button";
 import SignInwithGoogle from "@/components/widgets/SignInwithGoogle";
 import LoginImageTextSection from "@/components/sections/LoginImageTextSection";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -17,6 +17,7 @@ export default function Home() {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -54,7 +55,7 @@ export default function Home() {
       setIsSubmitting(true);
       toast.success("Login successful!");
       setIsSubmitting(false);
-      redirect("/select-ai-trainer");
+      router.push("/select-ai-trainer");
       // Perform login (e.g., API call)
       
     }

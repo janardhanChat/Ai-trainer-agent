@@ -13,17 +13,15 @@ export default function page() {
   console.log("[HealthCheckScreen] Daily instance:", daily);
   const { handleEnd, handleJoin, loading } = useConversation();
   useEffect(() => {
-    console.log("useEffect triggered");
 
     if (daily) {
-      console.log("[HealthCheckScreen] Starting camera...");
       daily?.startCamera({ startVideoOff: false, startAudioOff: false });
     }
   }, [daily, localSessionId]);
 
   return (
-    <div>
-      <Video id={localSessionId} className="max-h-[70vh]" />
+    <div className="bg-page-gradient h-screen">
+      <Video id={localSessionId} className="max-h-[60vh] " topClassname={'h-[650px]'}/>
       <CameraSettings
         actionLabel="Join Call"
         onAction={handleJoin}

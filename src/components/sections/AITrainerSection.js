@@ -3,7 +3,6 @@ import Image from "next/image";
 import React from "react";
 import Button from "../common/Button";
 import { healthcareAIprompts } from "@/app/select-ai-trainer/constants";
-import { redirect } from "next/navigation";
 const ProfileImage = "/images/profile.jpg";
 export default function AITrainerSection({ handleOpenmodal }) {
   

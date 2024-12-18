@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../common/Button";
 import CloseIcon from "@/assets/icons/CloseIcon";
 const TrainerLogo = "/images/trainer-logo.svg";
-export default function ConfirmationModal({ handleClose, isOpen , handleStart }) {
+export default function ConfirmationModal({ handleClose, isOpen , handleStart , loading }) {
   return (
     <>
       {isOpen && (
@@ -29,7 +29,7 @@ export default function ConfirmationModal({ handleClose, isOpen , handleStart })
                 Enhance care delivery while reducing workloads forhealthcare.
               </span>
               <div className="pt-4">
-                <Button text="Start" className="w-full" handleClick={handleStart} />
+                <Button text="Start" className="w-full" handleClick={handleStart} disabled={loading} />
               </div>
             </div>
             <div

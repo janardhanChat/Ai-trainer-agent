@@ -1,18 +1,96 @@
-import VideoProfileInformation from '@/components/sections/VideoProfileInformation'
-import VideoScreenBottomBar from '@/components/sections/VideoScreenBottomBar'
-import EvaluationOfTrainingModal from '@/components/widgets/EvaluationOfTrainingModal'
-import React from 'react'
+"use client";
+import { endConversation } from "@/api/api";
+import VideoProfileInformation from "@/components/sections/VideoProfileInformation";
+import VideoScreenBottomBar from "@/components/sections/VideoScreenBottomBar";
+import { Video } from "@/components/Video";
+import EvaluationOfTrainingModal from "@/components/widgets/EvaluationOfTrainingModal";
+import { useConversation } from "@/contexts/ConversationContext";
+import { cn } from "@/lib/utils";
+import {
+  DailyAudio,
+  DailyAudioTrack,
+  useAudioTrack,
+  useDaily,
+  useLocalSessionId,
+  useParticipantIds,
+  useVideoTrack,
+} from "@daily-co/daily-react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function page() {
-    return (
-        <div className='bg-[url("/images/video-img.png")] h-screen w-full bg-center bg-no-repeat relative'>
-        <div className='absolute top-[40px] left-[80px]'>
-            <VideoProfileInformation/>
+  const daily = useDaily();
+  const localSessionId = useLocalSessionId();
+  const remoteParticipantIds = useParticipantIds({ filter: "remote" });
+  const { conversation, setConversation } = useConversation();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (conversation && daily) {
+      const { conversation_url } = conversation;
+      daily.join({
+        url: conversation_url,
+      });
+    }
+  }, [daily, conversation]);
+
+  const handleEnd = async () => {
+    try {
+      if (!conversation) return;
+      await endConversation(conversation.conversation_id);
+      router.push("/select-ai-trainer");
+    } catch (error) {
+      console.error(error);
+      router.push("/select-ai-trainer");
+    } finally {
+      setConversation && setConversation(null);
+      router.push("/select-ai-trainer");
+    }
+  };
+  const handleLeave = async () => {
+    await daily?.leave();
+    handleEnd();
+  };
+
+
+  const toggleMicrophone = () => {
+    daily?.setLocalAudio(!isMicEnabled);
+  };
+
+
+  return (
+    <div className=" h-screen w-full bg-center bg-no-repeat relative">
+      {remoteParticipantIds.length > 0 ? (
+        <Video
+          id={remoteParticipantIds[0]}
+          className={"h-screen w-[screen] absolute top-0 left-0"}
+          topClassname={"h-screen"}
+        />
+      ) : (
+        <div className="relative flex items-center  justify-center max-h-[calc(100vh-10px)] ">
+          {/* <p className="text-2xl text-black">Waiting for others to join...</p> */}
+          <Skeleton height={"100vh"} width={"100vw"} />
         </div>
-        <div className='absolute bottom-[40px] left-0 w-full'>
-        <VideoScreenBottomBar/>
-        </div>
-        <EvaluationOfTrainingModal/>
-        </div>
-    )
+      )}
+      {localSessionId && (
+        <Video
+          id={localSessionId}
+          className={cn(
+            "absolute bottom-3 right-3 h-[350px] w-[500px] !object-cover "
+          )}
+          //   topClassname={"h-[450px] "}
+        />
+      )}
+      <div className="absolute top-[40px] left-[80px]">
+        <VideoProfileInformation />
+      </div>
+      <div className="absolute bottom-[40px] left-0 w-full">
+        <VideoScreenBottomBar handleLeave={handleLeave} toggleMicrophone={toggleMicrophone} />
+      </div>
+      <EvaluationOfTrainingModal />
+      <DailyAudio />
+      <DailyAudioTrack />
+    </div>
+  );
 }

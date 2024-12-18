@@ -1,12 +1,12 @@
-import { Fustat } from "next/font/google";
+import { Fustat, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ConversationProvider } from "@/contexts/ConversationContext";
-import { DailyProvider } from "@daily-co/daily-react";
+import DailyProviderClient from "@/components/providers/DailyProviderClient";
 
-const fustat = Fustat({
-  weight: ['200', '300', '400', '500', '600', '700' , '800'],
+const inter = Inter({
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
   fallback: ['sans-serif'],
   display: 'swap',
@@ -20,10 +20,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${fustat.className}`}>
+      <body className={`${inter.className}`}>
         <ConversationProvider>
-          <Toaster />
-          {children}
+          <DailyProviderClient>
+            <Toaster />
+            {children}
+          </DailyProviderClient>
         </ConversationProvider>
       </body>
     </html>

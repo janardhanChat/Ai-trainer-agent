@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 export default function page() {
   const [isOpen, setisOpen] = useState(false);
-  const {  handleStart } = useConversation()
+  const {  handleStart , loading } = useConversation();
 
   const handleOpenmodal = () => {
     setisOpen(true);
@@ -45,6 +45,7 @@ export default function page() {
           handleClose={handleClosemodal}
           isOpen={isOpen}
           handleStart={handleStart}
+          loading={loading}
         />
       </div>
     </div>

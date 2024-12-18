@@ -1,12 +1,13 @@
 "use client";
 import { createConversation, endConversation } from "@/api/api";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast"; // Replace this with your toast library if needed
 
 const ConversationContext = createContext();
 
 export const ConversationProvider = ({ children }) => {
+  const router = useRouter();
   const [screen, setScreen] = useState("welcome"); // 'welcome' | 'hairCheck' | 'call'
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,20 +20,30 @@ export const ConversationProvider = ({ children }) => {
     };
   }, [conversation]);
 
-  // Handlers
   const handleStart = async () => {
+    const toastId = toast.loading("Creating conversation...");
     try {
       setLoading(true);
       const newConversation = await createConversation();
       setConversation(newConversation);
-      redirect("/health-check-screen");
+      toast.success("Conversation created successfully!", {
+        id: toastId,
+      });
+      router.push("/health-check-screen");
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Check the console for details.");
-      redirect("/health-check-screen");
+      toast.error(
+        error.mesage || "Something went wrong. Check the console for details.",
+        {
+          id: toastId,
+        }
+      );
+      setLoading(false);
+      router.push("/health-check-screen");
     } finally {
       setLoading(false);
-      redirect("/health-check-screen");
+
+      router.push("/health-check-screen");
     }
   };
 
@@ -44,12 +55,12 @@ export const ConversationProvider = ({ children }) => {
       console.error(error);
     } finally {
       setConversation(null);
-      redirect("/select-ai-trainer");
+      router.push("/select-ai-trainer");
     }
   };
 
   const handleJoin = () => {
-    setScreen("call");
+    router.push("/video-screen");
   };
 
   return (
