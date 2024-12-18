@@ -16,7 +16,7 @@ export default function VideoScreenBottomBar({ handleLeave , toggleMicrophone })
       <div className="max-w-[1780px] px-5 mx-auto">
         <div className="flex items-center justify-center gap-6 pb-5">
           {/* <MuteIcon />
-                    <UnmuteIcon /> */}
+            <UnmuteIcon /> */}
           <button
             onClick={toggleMicrophone}
             className={`p-2.5 rounded-full text-slate-50 bg-custom-gradient`}
@@ -31,9 +31,9 @@ export default function VideoScreenBottomBar({ handleLeave , toggleMicrophone })
             <EndCallIcon />
           </div>
         </div>
-        <div className="rounded-[20px] backdrop-blur-[13px]	bg-[rgba(0, 0, 0, 0.08)] p-7">
+        {/* <div className="rounded-[20px] backdrop-blur-[13px]	bg-[rgba(0, 0, 0, 0.08)] p-7">
           <div className="flex items-center justify-between">
-            {/* <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5">
               <div className="bg-whiteOpacitybg30 rounded-[20px] backdrop-blur-md w-[100px] h-[60px] flex items-center justify-center">
                 <MusicIcon />
               </div>
@@ -43,12 +43,12 @@ export default function VideoScreenBottomBar({ handleLeave , toggleMicrophone })
                 years ago, yes, but it sat unused until last week. years ago,
                 yes, but it sat unused until last week.
               </p>
-            </div> */}
+            </div>
             <div className="bg-whiteOpacitybg30 rounded-[14px] backdrop-blur-md w-[50px] h-[60px] flex items-center justify-center">
               <SettingIcon />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

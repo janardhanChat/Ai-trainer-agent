@@ -23,6 +23,8 @@ export default function page() {
   const daily = useDaily();
   const localSessionId = useLocalSessionId();
   const remoteParticipantIds = useParticipantIds({ filter: "remote" });
+  const localAudio = useAudioTrack(localSessionId);
+  const isMicEnabled = !localAudio.isOff;
   const { conversation, setConversation } = useConversation();
   const router = useRouter();
 
@@ -42,10 +44,8 @@ export default function page() {
       router.push("/select-ai-trainer");
     } catch (error) {
       console.error(error);
-      router.push("/select-ai-trainer");
     } finally {
       setConversation && setConversation(null);
-      router.push("/select-ai-trainer");
     }
   };
   const handleLeave = async () => {
@@ -79,7 +79,6 @@ export default function page() {
           className={cn(
             "absolute bottom-3 right-3 h-[350px] w-[500px] !object-cover "
           )}
-          //   topClassname={"h-[450px] "}
         />
       )}
       <div className="absolute top-[40px] left-[80px]">

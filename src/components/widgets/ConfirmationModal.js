@@ -2,8 +2,15 @@ import Image from "next/image";
 import React from "react";
 import Button from "../common/Button";
 import CloseIcon from "@/assets/icons/CloseIcon";
+import { useConversation } from "@/contexts/ConversationContext";
 const TrainerLogo = "/images/trainer-logo.svg";
-export default function ConfirmationModal({ handleClose, isOpen , handleStart , loading }) {
+export default function ConfirmationModal({
+  handleClose,
+  isOpen,
+  handleStart,
+  loading,
+}) {
+  const { currentPersonaId } = useConversation();
   return (
     <>
       {isOpen && (
@@ -29,12 +36,17 @@ export default function ConfirmationModal({ handleClose, isOpen , handleStart , 
                 Enhance care delivery while reducing workloads forhealthcare.
               </span>
               <div className="pt-4">
-                <Button text="Start" className="w-full" handleClick={handleStart} disabled={loading} />
+                <Button
+                  text="Start"
+                  className="w-full"
+                  handleClick={() => handleStart(currentPersonaId)}
+                  disabled={loading}
+                />
               </div>
             </div>
             <div
               className="flex pt-5 items-center justify-center"
-              onClick={handleClose}
+              onClick={() => handleClose()}
             >
               <CloseIcon />
             </div>

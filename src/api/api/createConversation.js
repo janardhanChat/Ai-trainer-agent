@@ -1,15 +1,15 @@
-import { TAVUS_API_KEY } from '@/config';
+import { TAVUS_API_KEY } from "@/config";
 
-export const createConversation = async () => {
+export const createConversation = async (personaId) => {
   try {
-    const response = await fetch('https://tavusapi.com/v2/conversations', {
-      method: 'POST',
+    const response = await fetch("https://tavusapi.com/v2/conversations", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': TAVUS_API_KEY,
+        "Content-Type": "application/json",
+        "x-api-key": TAVUS_API_KEY,
       },
       body: JSON.stringify({
-        persona_id: 'p9a95912', // Stock Demo Persona
+        persona_id: personaId ?? "p9a95912", // Stock Demo Persona
       }),
     });
 
@@ -20,7 +20,7 @@ export const createConversation = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     throw error;
   }
 };

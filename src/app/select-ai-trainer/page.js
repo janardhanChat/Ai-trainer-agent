@@ -1,36 +1,48 @@
 "use client";
 import { createConversation } from "@/api/api";
+import { getPersona } from "@/api/api/getPersona";
 import AITrainerSection from "@/components/sections/AITrainerSection";
 import ConfirmationModal from "@/components/widgets/ConfirmationModal";
 import { useConversation } from "@/contexts/ConversationContext";
 import { redirect } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function page() {
   const [isOpen, setisOpen] = useState(false);
-  const {  handleStart , loading } = useConversation();
+  const { handleStart, loading ,currentPersonaId , setCurrentPersonaId } = useConversation();
+  const [personaDeatils , setPersonaDeatils] = useState([]);
+  const [personaLoading , setPersonLoading ] = useState(false);
+ 
 
-  const handleOpenmodal = () => {
+  const handleOpenmodal = (personaDeatils) => {
+    setCurrentPersonaId(personaDeatils?.persona_id);
     setisOpen(true);
   };
   const handleClosemodal = () => {
-    setisOpen(false); 
+    setisOpen(false);
   };
 
-  // const handleStart = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const conversation = await createConversation();
-  //     setConversation(conversation);
-  //     redirect("health-check-screen")
-  //   } catch (error) {
-  //     toast.error(error.message || "Uh oh! Something went wrong.");
-  //     redirect("health-check-screen")
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  useEffect(() => {
+    const getPersonaDeatils = async () => {
+      try {
+        setPersonLoading(true);
+        const response = await getPersona();
+        if (!response?.data?.success) {
+          setPersonLoading(false);
+          throw new Error("Failed to end conversation");
+        }
+        setPersonaDeatils(response?.data?.payload);
+        setPersonLoading(false);
+      } catch (error) {
+        console.error("Error:", error);
+        setPersonLoading(false);
+        throw error;
+      }
+    };
+     getPersonaDeatils();
+  }, []);
+
   return (
     <div className="bg-page-gradient min-h-screen py-[60px]">
       <div className="max-w-[1780px] px-5 mx-auto">
@@ -40,6 +52,8 @@ export default function page() {
         <AITrainerSection
           handleOpenmodal={handleOpenmodal}
           handleStart={handleStart}
+          personaDeatils={personaDeatils}
+          loading={personaLoading}
         />
         <ConfirmationModal
           handleClose={handleClosemodal}

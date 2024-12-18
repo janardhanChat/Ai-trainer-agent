@@ -2,15 +2,16 @@
 import { createConversation, endConversation } from "@/api/api";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-hot-toast"; // Replace this with your toast library if needed
+import { toast } from "react-hot-toast"; 
 
 const ConversationContext = createContext();
 
 export const ConversationProvider = ({ children }) => {
   const router = useRouter();
-  const [screen, setScreen] = useState("welcome"); // 'welcome' | 'hairCheck' | 'call'
+  const [screen, setScreen] = useState("welcome"); 
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [currentPersonaId, setCurrentPersonaId] = useState(null);
 
   useEffect(() => {
     return () => {
@@ -20,11 +21,11 @@ export const ConversationProvider = ({ children }) => {
     };
   }, [conversation]);
 
-  const handleStart = async () => {
+  const handleStart = async (personaId) => {
     const toastId = toast.loading("Creating conversation...");
     try {
       setLoading(true);
-      const newConversation = await createConversation();
+      const newConversation = await createConversation(personaId);
       setConversation(newConversation);
       toast.success("Conversation created successfully!", {
         id: toastId,
@@ -33,29 +34,26 @@ export const ConversationProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
       toast.error(
-        error.mesage || "Something went wrong. Check the console for details.",
+        error.message || "Something went wrong. Check the console for details.",
         {
           id: toastId,
         }
       );
       setLoading(false);
-      router.push("/health-check-screen");
     } finally {
       setLoading(false);
-
-      router.push("/health-check-screen");
     }
   };
 
   const handleEnd = async () => {
     try {
       if (!conversation) return;
-      await endConversation(conversation.conversation_id);
+      const result = await endConversation(conversation.conversation_id);
     } catch (error) {
       console.error(error);
     } finally {
       setConversation(null);
-      router.push("/select-ai-trainer");
+      // router.push("/select-ai-trainer");
     }
   };
 
@@ -73,6 +71,8 @@ export const ConversationProvider = ({ children }) => {
         handleStart,
         handleEnd,
         handleJoin,
+        currentPersonaId,
+        setCurrentPersonaId
       }}
     >
       {children}
