@@ -11,7 +11,7 @@ export default function AITrainerSection({
   loading,
 }) {
   return (
-    <div className="border border-solid border-borderColor1 bg-white shadow-md rounded-[30px] p-9 min-h-[70vh]">
+    <div className="border border-solid border-borderColor1 bg-white shadow-md rounded-[30px] p-9 min-h-[80vh]">
       <div className="grid grid-cols-3 gap-8">
         {personaDeatils?.length > 0 &&
           !loading &&

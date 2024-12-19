@@ -49,11 +49,12 @@ export const ConversationProvider = ({ children }) => {
     try {
       if (!conversation) return;
       const result = await endConversation(conversation.conversation_id);
+      router.push("/select-ai-trainer");
     } catch (error) {
+      console.log("🚀 ~ handleEnd ~ error:", error)
       console.error(error);
     } finally {
       setConversation(null);
-      // router.push("/select-ai-trainer");
     }
   };
 

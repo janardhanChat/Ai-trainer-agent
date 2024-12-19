@@ -110,6 +110,7 @@ export default function Home() {
                 className="w-full"
                 text={isSubmitting ? "Logging in..." : "Login"}
                 disabled={isSubmitting} // Disable button during submission
+                type="submit"
               />
             </div>
             <div className="grid grid-cols-[1fr_30px_1fr] gap-5 items-center pb-10">

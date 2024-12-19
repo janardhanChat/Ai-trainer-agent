@@ -15,7 +15,7 @@ export default function SelectDevice({ value, devices, onChange, Icon }) {
           <Icon size={16} />
         </span>
       </SelectTrigger>
-      <SelectContent className="z-10">
+      <SelectContent className="z-10 bg-custom-gradient text-white font-semibold">
         {devices.map(({ device }) => (
           <SelectItem key={device.deviceId} value={device.deviceId}>
             {device.label}
