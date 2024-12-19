@@ -31,11 +31,11 @@ export default function AITrainerSection({
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-black200 line-clamp-2">
-                    {items?.context}
+                    {items?.trainerTitle}
                   </h3>
                 </div>
                 <p className="text-lg text-black opacity-[.6] font-medium mb-5 line-clamp-6 min-[200px]:">
-                  {items?.system_prompt}
+                  {items?.trainerDescription}
                 </p>
                 <Button
                   text="Digital Human"
