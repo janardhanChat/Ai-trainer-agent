@@ -2,13 +2,13 @@
 import { createConversation, endConversation } from "@/api/api";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-hot-toast"; 
+import { toast } from "react-hot-toast";
 
 const ConversationContext = createContext();
 
 export const ConversationProvider = ({ children }) => {
   const router = useRouter();
-  const [screen, setScreen] = useState("welcome"); 
+  const [screen, setScreen] = useState("welcome");
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPersonaId, setCurrentPersonaId] = useState(null);
@@ -48,10 +48,13 @@ export const ConversationProvider = ({ children }) => {
   const handleEnd = async () => {
     try {
       if (!conversation) return;
-      const result = await endConversation(conversation.conversation_id);
+      const result = await endConversation(
+        conversation.conversation_id,
+        currentPersonaId?.apiKey
+      );
       router.push("/select-ai-trainer");
     } catch (error) {
-      console.log("🚀 ~ handleEnd ~ error:", error)
+      console.log("🚀 ~ handleEnd ~ error:", error);
       console.error(error);
     } finally {
       setConversation(null);
@@ -73,7 +76,7 @@ export const ConversationProvider = ({ children }) => {
         handleEnd,
         handleJoin,
         currentPersonaId,
-        setCurrentPersonaId
+        setCurrentPersonaId,
       }}
     >
       {children}

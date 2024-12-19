@@ -25,7 +25,7 @@ export default function page() {
   const remoteParticipantIds = useParticipantIds({ filter: "remote" });
   const localAudio = useAudioTrack(localSessionId);
   const isMicEnabled = !localAudio.isOff;
-  const { conversation, setConversation } = useConversation();
+  const { conversation, setConversation ,currentPersonaId } = useConversation();
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function page() {
   const handleEnd = async () => {
     try {
       if (!conversation) return;
-      await endConversation(conversation.conversation_id);
+      await endConversation(conversation.conversation_id , currentPersonaId?.apiKey);
       router.push("/select-ai-trainer");
     } catch (error) {
       console.error(error);

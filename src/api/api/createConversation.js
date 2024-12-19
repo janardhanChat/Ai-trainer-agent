@@ -1,15 +1,16 @@
 import { TAVUS_API_KEY } from "@/config";
 
 export const createConversation = async (personaId) => {
+  console.log("🚀 ~ createConversation ~ personaId:", personaId)
   try {
     const response = await fetch("https://tavusapi.com/v2/conversations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": TAVUS_API_KEY,
+        "x-api-key": personaId?.apiKey ?? TAVUS_API_KEY,
       },
       body: JSON.stringify({
-        persona_id: personaId ?? "p9a95912", // Stock Demo Persona
+        persona_id: personaId?.persona_id ?? "p9a95912", // Stock Demo Persona
       }),
     });
 

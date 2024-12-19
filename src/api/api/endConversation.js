@@ -1,13 +1,13 @@
 import { TAVUS_API_KEY } from '@/config';
 
-export const endConversation = async (conversationId) => {
+export const endConversation = async (conversationId , apiKey) => {
   try {
     const response = await fetch(
       `https://tavusapi.com/v2/conversations/${conversationId}/end`,
       {
         method: 'POST',
         headers: {
-          'x-api-key': TAVUS_API_KEY,
+          'x-api-key': apiKey ?? TAVUS_API_KEY,
         },
       }
     );

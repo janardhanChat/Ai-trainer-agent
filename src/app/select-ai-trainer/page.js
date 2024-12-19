@@ -16,7 +16,7 @@ export default function page() {
  
 
   const handleOpenmodal = (personaDeatils) => {
-    setCurrentPersonaId(personaDeatils?.persona_id);
+    setCurrentPersonaId(personaDeatils);
     setisOpen(true);
   };
   const handleClosemodal = () => {
