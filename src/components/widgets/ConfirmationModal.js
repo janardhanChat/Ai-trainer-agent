@@ -30,7 +30,7 @@ export default function ConfirmationModal({
               <p className="text-lg text-black200 font-semibold text-center mb-5 line-clamp-2">
                 { currentPersonaId?.trainerTitle ?? "Assist Patients with Virtual Healthcare AI Tools"}
               </p>
-              <p className="block text-lg text-center text-black opacity-[.6] font-medium line-clamp-5 max-h-52">
+              <p className=" text-lg text-center text-black opacity-[.6] font-medium  line-clamp-5 ">
                {currentPersonaId?.trainerDescription ??  "Help patients navigate their health journey effectively. Use AI to answer queries, schedule appointments, and manage follow-ups.Enhance care delivery while reducing workloads forhealthcare."}
               </p>
               <div className="pt-4">
