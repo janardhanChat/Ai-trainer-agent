@@ -16,7 +16,7 @@ import {
   useVideoTrack,
 } from "@daily-co/daily-react";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 
 export default function page() {
@@ -40,12 +40,16 @@ export default function page() {
   const handleEnd = async () => {
     try {
       if (!conversation) return;
-      await endConversation(conversation.conversation_id , currentPersonaId?.apiKey);
-      router.push("/select-ai-trainer");
+      await endConversation(
+        conversation.conversation_id,
+        currentPersonaId?.apiKey
+      );
+      // router.push("/select-ai-trainer");
+      router.push("/generate-report");
     } catch (error) {
       console.error(error);
     } finally {
-      setConversation && setConversation(null);
+      // setConversation && setConversation(null);
     }
   };
   const handleLeave = async () => {
@@ -85,7 +89,10 @@ export default function page() {
         <VideoProfileInformation />
       </div>
       <div className="absolute bottom-[40px] left-0 w-full">
-        <VideoScreenBottomBar handleLeave={handleLeave} toggleMicrophone={toggleMicrophone} />
+        <VideoScreenBottomBar
+          handleLeave={handleLeave}
+          toggleMicrophone={toggleMicrophone}
+        />
       </div>
       <EvaluationOfTrainingModal />
       <DailyAudio />

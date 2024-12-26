@@ -8,6 +8,9 @@ import SignInwithGoogle from "@/components/widgets/SignInwithGoogle";
 import LoginImageTextSection from "@/components/sections/LoginImageTextSection";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { API_BASE_URL } from "@/api/api/constantsKey";
+import axios from "axios";
+import { setCookie } from "@/hooks/useCookie";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -52,12 +55,40 @@ export default function Home() {
     setFormErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      setIsSubmitting(true);
-      toast.success("Login successful!");
-      setIsSubmitting(false);
-      router.push("/select-ai-trainer");
-      // Perform login (e.g., API call)
-      
+      const login = async () => {
+        try {
+          setIsSubmitting(true);
+          const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+            email: formData.email,
+            password: formData.password,
+          });
+          return response;
+        } catch (error) {
+          console.error("Error logging in:", error);
+          return error;
+        }
+      };
+
+      login()
+        .then((data) => {
+          console.log("🚀 ~ .then ~ data:", data)
+          if (data?.data?.success) {
+            let userToken = data?.data?.payload?.tokens;
+            setCookie("userToken", userToken);
+            localStorage.setItem("userInformation", JSON.stringify(data?.data?.payload?.user));
+            toast.success("Login successful!");
+            setIsSubmitting(false);
+            router.push("/select-ai-trainer");
+          } else {
+            setIsSubmitting(false);
+            toast.error(data?.data?.message || "Login failed. Please try again.");
+          }
+        })
+        .catch((error) => {
+          setIsSubmitting(false);
+          toast.error(error.message || "Login failed. Please try again.");
+          console.error("Error logging in:", error);
+        });
     }
   };
 

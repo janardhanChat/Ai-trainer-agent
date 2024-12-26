@@ -1,5 +1,7 @@
 "use client";
 import { createConversation, endConversation } from "@/api/api";
+import { API_BASE_URL } from "@/api/api/constantsKey";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -8,10 +10,18 @@ const ConversationContext = createContext();
 
 export const ConversationProvider = ({ children }) => {
   const router = useRouter();
+  const [userInformation, setUserInformation] = useState();
   const [screen, setScreen] = useState("welcome");
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPersonaId, setCurrentPersonaId] = useState(null);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInformation"));
+    if (userInfo) {
+      setUserInformation(userInfo);
+    }
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -26,6 +36,32 @@ export const ConversationProvider = ({ children }) => {
     try {
       setLoading(true);
       const newConversation = await createConversation(personaId);
+      console.log("🚀 ~ handleStart ~ newConversation:", newConversation);
+      if (!userInformation || newConversation.error) {
+        toast.error("Something went wrong. Check the console for details.", {
+          id: toastId,
+        });
+        setLoading(false);
+        return;
+      }
+      const response = await axios.put(
+        `${API_BASE_URL}/auth/updateUser/?id=${userInformation._id}`,
+        {
+          conversation_Id: newConversation.conversation_id,
+        }
+      );
+      console.log("🚀 ~ handleStart ~ response:", response)
+      if (!response.data.success) {
+        toast.error("Something went wrong. Check the console for details.", {
+          id: toastId,
+        });
+        const result = await endConversation(
+          newConversation.conversation_id,
+          currentPersonaId?.apiKey
+        );
+        setLoading(false);
+        return;
+      }
       setConversation(newConversation);
       toast.success("Conversation created successfully!", {
         id: toastId,
@@ -77,6 +113,7 @@ export const ConversationProvider = ({ children }) => {
         handleJoin,
         currentPersonaId,
         setCurrentPersonaId,
+        userInformation,
       }}
     >
       {children}

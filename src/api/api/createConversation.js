@@ -1,7 +1,6 @@
 import { TAVUS_API_KEY } from "@/config";
 
 export const createConversation = async (personaId) => {
-  console.log("🚀 ~ createConversation ~ personaId:", personaId)
   try {
     const response = await fetch("https://tavusapi.com/v2/conversations", {
       method: "POST",
@@ -10,7 +9,12 @@ export const createConversation = async (personaId) => {
         "x-api-key": personaId?.apiKey ?? TAVUS_API_KEY,
       },
       body: JSON.stringify({
-        persona_id: personaId?.persona_id ?? "p9a95912", // Stock Demo Persona
+        persona_id: personaId?.persona_id ?? "p9a95912",
+        callback_url:
+          "https://63d2-2405-201-200d-1932-443a-b911-87e7-e29f.ngrok-free.app/api/v1/persona/webhook",
+        properties: {
+          enable_transcription: true
+        },
       }),
     });
 
