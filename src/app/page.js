@@ -50,6 +50,7 @@ export default function Home() {
   };
 
   const handleSubmit = (e) => {
+    
     e.preventDefault();
     const errors = validate(formData);
     setFormErrors(errors);
@@ -105,7 +106,13 @@ export default function Home() {
           <p className="text-xl text-black opacity-[0.6] font-medium mb-10">
             Enter the information you entered while registering.
           </p>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}
+           onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault(); // Prevent Enter key from submitting the form
+            }
+          }}
+          >
             <div className="pb-6">
               <Input
                 label="Email"

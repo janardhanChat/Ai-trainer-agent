@@ -59,6 +59,7 @@ export const ConversationProvider = ({ children }) => {
           newConversation.conversation_id,
           currentPersonaId?.apiKey
         );
+        console.log("🚀 ~ handleStart ~ result:", result)
         setLoading(false);
         return;
       }
