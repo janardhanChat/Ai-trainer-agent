@@ -16,6 +16,8 @@ export const ConversationProvider = ({ children }) => {
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPersonaId, setCurrentPersonaId] = useState(null);
+  const userInfo = getCookie("userInformation");
+  const userDetails = JSON.parse(userInfo);
 
   useEffect(() => {
     // const userInfo = JSON.parse(localStorage.getItem("userInformation"));
@@ -40,13 +42,8 @@ export const ConversationProvider = ({ children }) => {
     try {
       setLoading(true);
       const newConversation = await createConversation(personaId);
-      console.log(
-        "🚀 ~ handleStart ~ newConversation:",
-        newConversation,
-        !userInformation,
-        userInformation
-      );
-      if (!userInformation || newConversation.error) {
+     
+      if (!userDetails || newConversation.error) {
         toast.error("Something went wrong. Check the console for details.", {
           id: toastId,
         });
@@ -54,7 +51,7 @@ export const ConversationProvider = ({ children }) => {
         return;
       }
       const response = await axios.put(
-        `${API_BASE_URL}/auth/updateUser/?id=${userInformation._id}`,
+        `${API_BASE_URL}/auth/updateUser/?id=${userDetails?._id}`,
         {
           conversation_Id: newConversation.conversation_id,
         }
