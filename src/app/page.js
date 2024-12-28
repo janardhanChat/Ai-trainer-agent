@@ -106,13 +106,13 @@ export default function Home() {
           <p className="text-xl text-black opacity-[0.6] font-medium mb-10">
             Enter the information you entered while registering.
           </p>
-          <form onSubmit={handleSubmit}
+          {/* <form onSubmit={handleSubmit}
            onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault(); // Prevent Enter key from submitting the form
             }
           }}
-          >
+          > */}
             <div className="pb-6">
               <Input
                 label="Email"
@@ -149,6 +149,7 @@ export default function Home() {
                 text={isSubmitting ? "Logging in..." : "Login"}
                 disabled={isSubmitting} // Disable button during submission
                 type="submit"
+                handleClick={handleSubmit}
               />
             </div>
             <div className="grid grid-cols-[1fr_30px_1fr] gap-5 items-center pb-10">
@@ -159,7 +160,7 @@ export default function Home() {
               <div className="border-t border-solid border-borderColor"></div>
             </div>
             <SignInwithGoogle />
-          </form>
+          {/* </form> */}
         </div>
       </div>
     </>
