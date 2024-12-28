@@ -11,7 +11,7 @@ export const createConversation = async (personaId) => {
       body: JSON.stringify({
         persona_id: personaId?.persona_id ?? "p9a95912",
         callback_url:
-          "https://63d2-2405-201-200d-1932-443a-b911-87e7-e29f.ngrok-free.app/api/v1/persona/webhook",
+          "https://api.ai-trainer.rejoicehub.com/api/v1/persona/webhook",
         properties: {
           enable_transcription: true
         },

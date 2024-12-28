@@ -1,6 +1,7 @@
 import { TAVUS_API_KEY } from '@/config';
 
 export const endConversation = async (conversationId , apiKey) => {
+  console.log("🚀 ~ endConversation ~ apiKey:", apiKey)
   try {
     const response = await fetch(
       `https://tavusapi.com/v2/conversations/${conversationId}/end`,

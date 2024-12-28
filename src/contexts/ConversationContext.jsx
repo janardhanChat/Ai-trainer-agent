@@ -36,8 +36,8 @@ export const ConversationProvider = ({ children }) => {
     try {
       setLoading(true);
       const newConversation = await createConversation(personaId);
-      console.log("🚀 ~ handleStart ~ newConversation:", newConversation);
-      if (!userInformation || newConversation.error) {
+      console.log("🚀 ~ handleStart ~ newConversation:", newConversation,!userInformation,  userInformation);
+      if (newConversation.error) {
         toast.error("Something went wrong. Check the console for details.", {
           id: toastId,
         });
