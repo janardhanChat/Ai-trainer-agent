@@ -76,6 +76,7 @@ export default function Home() {
           if (data?.data?.success) {
             let userToken = data?.data?.payload?.tokens;
             setCookie("userToken", userToken);
+            setCookie("userInformation", JSON.stringify(data?.data?.payload?.user));
             localStorage.setItem("userInformation", JSON.stringify(data?.data?.payload?.user));
             toast.success("Login successful!");
             setIsSubmitting(false);

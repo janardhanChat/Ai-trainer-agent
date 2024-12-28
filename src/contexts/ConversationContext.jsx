@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { getCookie } from "@/hooks/useCookie";
 
 const ConversationContext = createContext();
 
@@ -17,9 +18,12 @@ export const ConversationProvider = ({ children }) => {
   const [currentPersonaId, setCurrentPersonaId] = useState(null);
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInformation"));
+    // const userInfo = JSON.parse(localStorage.getItem("userInformation"));
+    const userInfo = getCookie("userInformation");
     if (userInfo) {
-      setUserInformation(userInfo);
+      const userInformation = JSON.parse(userInfo);
+      console.log("🚀 ~ useEffect ~ userInfo:", userInformation);
+      setUserInformation(userInformation);
     }
   }, []);
 
@@ -36,8 +40,13 @@ export const ConversationProvider = ({ children }) => {
     try {
       setLoading(true);
       const newConversation = await createConversation(personaId);
-      console.log("🚀 ~ handleStart ~ newConversation:", newConversation,!userInformation,  userInformation);
-      if (newConversation.error) {
+      console.log(
+        "🚀 ~ handleStart ~ newConversation:",
+        newConversation,
+        !userInformation,
+        userInformation
+      );
+      if (!userInformation || newConversation.error) {
         toast.error("Something went wrong. Check the console for details.", {
           id: toastId,
         });
@@ -50,7 +59,7 @@ export const ConversationProvider = ({ children }) => {
           conversation_Id: newConversation.conversation_id,
         }
       );
-      console.log("🚀 ~ handleStart ~ response:", response)
+      console.log("🚀 ~ handleStart ~ response:", response);
       if (!response.data.success) {
         toast.error("Something went wrong. Check the console for details.", {
           id: toastId,
@@ -59,7 +68,7 @@ export const ConversationProvider = ({ children }) => {
           newConversation.conversation_id,
           currentPersonaId?.apiKey
         );
-        console.log("🚀 ~ handleStart ~ result:", result)
+        console.log("🚀 ~ handleStart ~ result:", result);
         setLoading(false);
         return;
       }
