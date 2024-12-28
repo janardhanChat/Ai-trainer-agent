@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/api/api/constantsKey";
 import axios from "axios";
 import { setCookie } from "@/hooks/useCookie";
+import { useConversation } from "@/contexts/ConversationContext";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ export default function Home() {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-
+  const {getUserInfoFromCookig} = useConversation();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -78,6 +79,7 @@ export default function Home() {
             setCookie("userToken", userToken);
             setCookie("userInformation", JSON.stringify(data?.data?.payload?.user));
             localStorage.setItem("userInformation", JSON.stringify(data?.data?.payload?.user));
+            getUserInfoFromCookig();
             toast.success("Login successful!");
             setIsSubmitting(false);
             router.push("/select-ai-trainer");

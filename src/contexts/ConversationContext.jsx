@@ -18,14 +18,18 @@ export const ConversationProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [currentPersonaId, setCurrentPersonaId] = useState(null);
 
-  useEffect(() => {
-    // const userInfo = JSON.parse(localStorage.getItem("userInformation"));
+  const getUserInfoFromCookig = () => {
     const userInfo = getCookie("userInformation");
     if (userInfo) {
       const parsedUserInformation = JSON.parse(userInfo);
       console.log("🚀 ~ useEffect ~ userInfo:", parsedUserInformation);
       setUserInformation(parsedUserInformation);
     }
+  }
+
+  useEffect(() => {
+    // const userInfo = JSON.parse(localStorage.getItem("userInformation"));
+   getUserInfoFromCookig();
   }, []);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export const ConversationProvider = ({ children }) => {
 
   const handleStart = async (personaId , userDet) => {
     console.log("🚀 ~ handleStart ~ userDet:", userDet)
-    if(!userDet || !personaId) return null;
+    if(!userDet || !personaId) return toast.error("User not found");
     const toastId = toast.loading("Creating conversation...");
     try {
       setLoading(true);
@@ -122,6 +126,7 @@ export const ConversationProvider = ({ children }) => {
         currentPersonaId,
         setCurrentPersonaId,
         userInformation,
+        getUserInfoFromCookig,
       }}
     >
       {children}
