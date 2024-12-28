@@ -11,6 +11,7 @@ export default function ConfirmationModal({
   loading,
 }) {
   const { currentPersonaId } = useConversation();
+  console.log("🚀 ~ currentPersonaId:", currentPersonaId)
   return (
     <>
       {isOpen && (
