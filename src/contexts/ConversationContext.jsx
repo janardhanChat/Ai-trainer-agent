@@ -22,9 +22,9 @@ export const ConversationProvider = ({ children }) => {
     // const userInfo = JSON.parse(localStorage.getItem("userInformation"));
     const userInfo = getCookie("userInformation");
     if (userInfo) {
-      const userInformation = JSON.parse(userInfo);
-      console.log("🚀 ~ useEffect ~ userInfo:", userInformation);
-      setUserInformation(userInformation);
+      const parsedUserInformation = JSON.parse(userInfo);
+      console.log("🚀 ~ useEffect ~ userInfo:", parsedUserInformation);
+      setUserInformation(parsedUserInformation);
     }
   }, []);
 
@@ -38,6 +38,7 @@ export const ConversationProvider = ({ children }) => {
 
   const handleStart = async (personaId , userDet) => {
     console.log("🚀 ~ handleStart ~ userDet:", userDet)
+    if(!userDet || !personaId) return null;
     const toastId = toast.loading("Creating conversation...");
     try {
       setLoading(true);

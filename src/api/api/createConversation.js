@@ -16,6 +16,7 @@ export const createConversation = async (personaId) => {
           enable_transcription: true
         },
       }),
+      cache: 'no-store'
     });
 
     if (!response.ok) {
