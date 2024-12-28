@@ -98,6 +98,7 @@ export const ConversationProvider = ({ children }) => {
         conversation.conversation_id,
         currentPersonaId?.apiKey
       );
+      console.log("🚀 ~ handleEnd ~ result:", result)
       router.push("/select-ai-trainer");
     } catch (error) {
       console.log("🚀 ~ handleEnd ~ error:", error);
