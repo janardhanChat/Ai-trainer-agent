@@ -12,6 +12,7 @@ const ConversationContext = createContext();
 export const ConversationProvider = ({ children }) => {
   const router = useRouter();
   const [userInformation, setUserInformation] = useState();
+  console.log("🚀 ~ ConversationProvider ~ userInformation:", userInformation)
   const [screen, setScreen] = useState("welcome");
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,18 +36,12 @@ export const ConversationProvider = ({ children }) => {
     };
   }, [conversation]);
 
-  const handleStart = async (personaId) => {
+  const handleStart = async (personaId , userDet) => {
     const toastId = toast.loading("Creating conversation...");
     try {
       setLoading(true);
       const newConversation = await createConversation(personaId);
-      console.log(
-        "🚀 ~ handleStart ~ newConversation:",
-        newConversation,
-        !userInformation,
-        userInformation
-      );
-      if (!userInformation || newConversation.error) {
+      if (!userDet || newConversation.error) {
         toast.error("Something went wrong. Check the console for details.", {
           id: toastId,
         });
@@ -54,7 +49,7 @@ export const ConversationProvider = ({ children }) => {
         return;
       }
       const response = await axios.put(
-        `${API_BASE_URL}/auth/updateUser/?id=${userInformation._id}`,
+        `${API_BASE_URL}/auth/updateUser/?id=${userDet._id}`,
         {
           conversation_Id: newConversation.conversation_id,
         }

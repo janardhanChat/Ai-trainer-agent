@@ -10,8 +10,8 @@ export default function ConfirmationModal({
   handleStart,
   loading,
 }) {
-  const { currentPersonaId } = useConversation();
-  console.log("🚀 ~ currentPersonaId:", currentPersonaId)
+  const { currentPersonaId , userInformation } = useConversation();
+  console.log("🚀 ~ currentPersonaId:", currentPersonaId , userInformation)
   return (
     <>
       {isOpen && (
@@ -38,7 +38,7 @@ export default function ConfirmationModal({
                 <Button
                   text="Start"
                   className="w-full"
-                  handleClick={() => handleStart(currentPersonaId)}
+                  handleClick={() => handleStart(currentPersonaId , userInformation)}
                   disabled={loading}
                 />
               </div>
