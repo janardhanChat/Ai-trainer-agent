@@ -37,6 +37,7 @@ export const ConversationProvider = ({ children }) => {
   }, [conversation]);
 
   const handleStart = async (personaId , userDet) => {
+    console.log("🚀 ~ handleStart ~ userDet:", userDet)
     const toastId = toast.loading("Creating conversation...");
     try {
       setLoading(true);
