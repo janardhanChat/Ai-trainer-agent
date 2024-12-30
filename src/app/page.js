@@ -22,7 +22,7 @@ export default function Home() {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const {getUserInfoFromCookig} = useConversation();
+  const {getUserInfoFromCookiee} = useConversation();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -79,7 +79,7 @@ export default function Home() {
             setCookie("userToken", userToken);
             setCookie("userInformation", JSON.stringify(data?.data?.payload?.user));
             localStorage.setItem("userInformation", JSON.stringify(data?.data?.payload?.user));
-            getUserInfoFromCookig();
+            getUserInfoFromCookiee();
             toast.success("Login successful!");
             setIsSubmitting(false);
             router.push("/select-ai-trainer");
@@ -155,14 +155,14 @@ export default function Home() {
                 handleClick={handleSubmit}
               />
             </div>
-            <div className="grid grid-cols-[1fr_30px_1fr] gap-5 items-center pb-10">
+            {/* <div className="grid grid-cols-[1fr_30px_1fr] gap-5 items-center pb-10">
               <div className="border-t border-solid border-borderColor"></div>
               <span className="text-lg text-gray900 font-semibold block">
                 OR
               </span>
               <div className="border-t border-solid border-borderColor"></div>
             </div>
-            <SignInwithGoogle />
+            <SignInwithGoogle /> */}
           {/* </form> */}
         </div>
       </div>

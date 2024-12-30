@@ -18,7 +18,7 @@ export const ConversationProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [currentPersonaId, setCurrentPersonaId] = useState(null);
 
-  const getUserInfoFromCookig = () => {
+  const getUserInfoFromCookiee = () => {
     const userInfo = getCookie("userInformation");
     if (userInfo) {
       const parsedUserInformation = JSON.parse(userInfo);
@@ -29,7 +29,7 @@ export const ConversationProvider = ({ children }) => {
 
   useEffect(() => {
     // const userInfo = JSON.parse(localStorage.getItem("userInformation"));
-   getUserInfoFromCookig();
+   getUserInfoFromCookiee();
   }, []);
 
   useEffect(() => {
@@ -126,7 +126,7 @@ export const ConversationProvider = ({ children }) => {
         currentPersonaId,
         setCurrentPersonaId,
         userInformation,
-        getUserInfoFromCookig,
+        getUserInfoFromCookiee,
       }}
     >
       {children}
