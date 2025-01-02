@@ -50,6 +50,12 @@ export default function AITrainerSection({
           <Loader className="animate-spin" />
         </div>
       )}
+
+      {!loading && personaDeatils?.length === 0 && (
+        <div className="flex items-center justify-center h-[70vh]">
+          <h3 className="text-lg font-semibold text-black200">No data found</h3>
+        </div>
+      )}
     </div>
   );
 }

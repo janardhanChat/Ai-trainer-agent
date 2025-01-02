@@ -2,9 +2,9 @@ import { TAVUS_API_KEY } from "@/config";
 import { API_BASE_URL } from "./constantsKey";
 import axios from "axios";
 
-export const getPersona = async () => {
+export const getPersona = async (personaCategoryID) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/persona/getPersona`);
+    const response = await axios.get(`${API_BASE_URL}/persona/getPersona/?id=${personaCategoryID}`);
     if (!response?.data?.success) {
         console.log("🚀 ~ endConversation ~ response:", response);
         throw new Error("Failed to end conversation");
