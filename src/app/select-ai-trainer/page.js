@@ -41,6 +41,7 @@ export default function page() {
     } catch (error) {
       console.error("Error fetching persona details:", error);
       toast.error("Error fetching persona details.");
+      setPersonaDeatils([]);
     } finally {
       setPersonLoading(false);
     }
