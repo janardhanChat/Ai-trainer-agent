@@ -31,7 +31,10 @@ module.exports = {
   			borderColor: '#DADADA',
   			borderColor1: '#DFCBDE',
   			whiteOpacitybg: 'rgba(255, 255, 255, 0.10)',
+  			modalBlur: 'rgba(15, 15, 15 , .9)',
+
   			whiteOpacitybg30: 'rgba(255, 255, 255, 0.30)',
+  			whiteOpacitybg19: 'rgba(255, 255, 255, 0.19)',
   			whiteBorder: 'rgba(255, 255, 255, 0.60)',
   			modalbg: 'rgba(0, 0, 0, 0.7)',
   			blackOpacitybg: 'rgba(0, 0, 0, 0.8)',
@@ -188,14 +191,20 @@ module.exports = {
   			}
   		},
   		backgroundImage: {
-  			'custom-gradient': 'linear-gradient(264deg, #9E8FFC 0%, #6061FA 50%, #5EADFA 100%)',
-  			'page-gradient': 'linear-gradient(180deg, #EFEFFD 0%, #F4E2EF 100%)'
+  			'custom-gradient': 'linear-gradient(90deg, #B93DFF 0%, #4C99FF 100%);',
+  			'page-gradient': 'linear-gradient(180deg, #EFEFFD 0%, #F4E2EF 100%)',
+  			'card-gradient': 'linear-gradient(180deg, #212234 0%, #131322 100%)',
+			'modalBackground': 'linear-gradient(180deg, #212234 0%, #282842 100%)',
+			'modalsubBackground': 'linear-gradient(180deg, #6C7EFF 0%, #24253C 100%)',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		}, 
+		fontFamily: {
+			inter:'var(--inter)',
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

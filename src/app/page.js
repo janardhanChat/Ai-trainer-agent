@@ -12,6 +12,7 @@ import { API_BASE_URL } from "@/api/api/constantsKey";
 import axios from "axios";
 import { setCookie } from "@/hooks/useCookie";
 import { useConversation } from "@/contexts/ConversationContext";
+import EyeIcon from "@/assets/icons/eyeIcon";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -103,10 +104,10 @@ export default function Home() {
           <LoginImageTextSection />
         </div>
         <div className="max-w-[501px] mx-auto">
-          <h1 className="text-[32px] text-black font-bold leading-[40px] mb-[14px]">
+          <h1 className="text-[32px] text-black font-bold leading-[40px] mb-3">
             Welcome to <span className="gradient-text">AI Trainer</span> ✋
           </h1>
-          <p className="text-xl text-black opacity-[0.6] font-medium mb-10">
+          <p className="text-lg text-black opacity-[0.6] font-medium mb-7">
             Enter the information you entered while registering.
           </p>
           {/* <form onSubmit={handleSubmit}
@@ -135,6 +136,7 @@ export default function Home() {
                 placeholder="Enter your password"
                 name="password"
                 type="password"
+                icon={<EyeIcon/>}
                 value={formData.password}
                 onChange={handleOnChange}
                 error={formErrors.password} // For displaying error in the Input component
@@ -143,10 +145,10 @@ export default function Home() {
                 <p className="text-red-500 text-sm">{formErrors.password}</p>
               )}
             </div>
-            <a className="block text-blue pb-10 text-right text-lg font-semibold cursor-pointer">
+            {/* <a className="block text-blue pb-7 text-right text-base font-semibold cursor-pointer">
               Forgot password?
-            </a>
-            <div className="pb-10">
+            </a> */}
+            <div className="pb-7 pt-3">
               <Button
                 className="w-full"
                 text={isSubmitting ? "Logging in..." : "Login"}
@@ -155,14 +157,14 @@ export default function Home() {
                 handleClick={handleSubmit}
               />
             </div>
-            {/* <div className="grid grid-cols-[1fr_30px_1fr] gap-5 items-center pb-10">
+            <div className="grid grid-cols-[1fr_20px_1fr] gap-5 items-center pb-7">
               <div className="border-t border-solid border-borderColor"></div>
-              <span className="text-lg text-gray900 font-semibold block">
+              <span className="text-base text-gray900 font-medium block">
                 OR
               </span>
               <div className="border-t border-solid border-borderColor"></div>
             </div>
-            <SignInwithGoogle /> */}
+            <SignInwithGoogle />
           {/* </form> */}
         </div>
       </div>

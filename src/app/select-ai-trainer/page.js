@@ -80,13 +80,13 @@ export default function page() {
   };
 
   return (
-    <div className="bg-page-gradient min-h-screen py-[60px]">
+    <div className="bg-[#0F0F0F] min-h-screen py-[60px]">
       <div className="max-w-[1780px] px-5 mx-auto">
-        <div className="flex gap-4">
-          <h2 className="text-[28px] text-black font-bold leading-normal mb-[30px]">
+        <div className="flex gap-4 items-center justify-between pb-7">
+          <h2 className="text-[28px] laptop:text-2xl text-white font-medium leading-normal">
             Select AI Agent
           </h2>
-          <div>
+          {/* <div>
             <DropdownMenuCheckboxes
               selectedItem={selectedItem}
               setSelectedItem={handleCategoryChange}
@@ -95,7 +95,10 @@ export default function page() {
               loading={categoryloading}
               setLoading={setCategoryLoading}
             />
-          </div>
+          </div> */}
+          <button className="border-solid border border-[#B73EFF] py-2 px-8 text-white text-base font-medium rounded-full cursor-pointer">
+          Logout
+          </button>
         </div>
         <AITrainerSection
           handleOpenmodal={handleOpenmodal}
