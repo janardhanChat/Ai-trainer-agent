@@ -1,18 +1,20 @@
 "use client";
-import { createConversation } from "@/api/api";
+// import { createConversation } from "@/api/api";
 import { API_BASE_URL } from "@/api/api/constantsKey";
 import { getPersona } from "@/api/api/getPersona";
-import { DropdownMenuCheckboxes } from "@/components/common/dropdown";
+// import { DropdownMenuCheckboxes } from "@/components/common/dropdown";
 import AITrainerSection from "@/components/sections/AITrainerSection";
+import LogoutModal from "@/components/sections/logoutModal";
 import ConfirmationModal from "@/components/widgets/ConfirmationModal";
 import { useConversation } from "@/contexts/ConversationContext";
 import axios from "axios";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function page() {
   const [isOpen, setisOpen] = useState(false);
+  const [openLogoutModal, setOpenlogoutModal] = useState(false);
   const { handleStart, loading, currentPersonaId, setCurrentPersonaId } =
     useConversation();
   const [personaDeatils, setPersonaDeatils] = useState([]);
@@ -32,7 +34,7 @@ export default function page() {
   const getPersonaDetails = async (personaCategoryID) => {
     try {
       setPersonLoading(true);
-      const response = await getPersona(personaCategoryID);
+      const response = await getPersona();
       if (!response?.data?.success) {
         setPersonaDeatils([]);
         throw new Error("Failed to fetch persona details");
@@ -40,7 +42,7 @@ export default function page() {
       setPersonaDeatils(response?.data?.payload || []);
     } catch (error) {
       console.error("Error fetching persona details:", error);
-      toast.error("Error fetching persona details.");
+      error.status !== 404 && toast.error("Error fetching persona details.");
       setPersonaDeatils([]);
     } finally {
       setPersonLoading(false);
@@ -74,10 +76,10 @@ export default function page() {
     fetchCategories();
   }, []);
 
-  const handleCategoryChange = async (selectedOption) => {
-    setSelectedItem(selectedOption);
-    await getPersonaDetails(selectedOption.value);
-  };
+  // const handleCategoryChange = async (selectedOption) => {
+  //   setSelectedItem(selectedOption);
+  //   await getPersonaDetails(selectedOption.value);
+  // };
 
   return (
     <div className="bg-[#0F0F0F] min-h-screen py-[60px]">
@@ -96,7 +98,7 @@ export default function page() {
               setLoading={setCategoryLoading}
             />
           </div> */}
-          <button className="border-solid border border-[#B73EFF] py-2 px-8 text-white text-base font-medium rounded-full cursor-pointer">
+          <button className="border-solid border border-[#B73EFF] py-2 px-8 text-white text-base font-medium rounded-full cursor-pointer" onClick={() => setOpenlogoutModal(true)}>
           Logout
           </button>
         </div>
@@ -112,6 +114,7 @@ export default function page() {
           handleStart={handleStart}
           loading={loading}
         />
+        {openLogoutModal && <LogoutModal setModalOpen={setOpenlogoutModal}/>}
       </div>
     </div>
   );

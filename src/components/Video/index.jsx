@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 import {
   useVideoTrack,
   DailyVideo,
-  useLocalSessionId,
 } from "@daily-co/daily-react";
-import Skeleton from "react-loading-skeleton";
+import Image from "next/image";
+const ProfileImage = "/images/ProfileImage.png";
 
-export const Video = ({ id, className, topClassname }) => {
+export const Video = ({ id, className, topClassname, getUserMediaError }) => {
   const videoState = useVideoTrack(id);
   return !videoState?.isOff ? (
     <div
@@ -20,7 +20,7 @@ export const Video = ({ id, className, topClassname }) => {
         sessionId={id}
         type="video"
         className={cn(
-          "h-auto  bg-slate-500/80 rounded-md",
+          "h-auto bg-[#191921] rounded-md",
           className,
           {
             hidden: videoState.isOff,
@@ -30,12 +30,15 @@ export const Video = ({ id, className, topClassname }) => {
     </div>
     
   ) : (
-    <div className="w-full mx-auto flex items-center h-[650px]  justify-center">
-      <Skeleton
-        className={cn("h-500 bg-slate-500/80 rounded-md mx-auto", className)}
-        height={500}
-        width={800}
-      />
+     <div className="w-full mx-auto flex items-center h-[650px]  justify-center">
+      <div className="h-[500px] w-[800px] bg-[#191921] rounded-md mx-auto flex items-center justify-center">
+      {!getUserMediaError ? <Image
+          src={ProfileImage}
+          alt="ProfileImage"
+          width={200}
+          height={200}
+        /> : <h2 className="text-white">Camera is off </h2>}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DailyProvider, useDaily } from "@daily-co/daily-react";
 import { useLocalSessionId } from "@daily-co/daily-react";
 import { CameraSettings } from "@/components/sections/CameraSetting";
@@ -12,6 +12,7 @@ export default function page() {
   const daily = useDaily();
   console.log("[HealthCheckScreen] Daily instance:", daily);
   const { handleEnd, handleJoin, loading } = useConversation();
+  const [getUserMediaError, setGetUserMediaError] = useState(false);
   useEffect(() => {
     if (daily) {
       daily?.startCamera({ startVideoOff: false, startAudioOff: false });
@@ -19,17 +20,20 @@ export default function page() {
   }, [daily, localSessionId]);
 
   return (
-    <div className="bg-page-gradient h-screen">
+    <div className="bg-[#0F0F0F] h-screen">
       <Video
         id={localSessionId}
         className="max-h-[60vh] "
         topClassname={"h-[650px]"}
+        getUserMediaError={getUserMediaError}
       />
       <CameraSettings
         actionLabel="Join Call"
         onAction={handleJoin}
         cancelLabel="Cancel"
         onCancel={handleEnd}
+        getUserMediaError={getUserMediaError}
+        setGetUserMediaError={setGetUserMediaError}
       />
     </div>
   );

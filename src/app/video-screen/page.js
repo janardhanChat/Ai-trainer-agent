@@ -39,7 +39,10 @@ export default function page() {
 
   const handleEnd = async () => {
     try {
-      if (!conversation) return;
+      if (!conversation) {
+        router.push("/select-ai-trainer");
+        return
+      };
       await endConversation(
         conversation.conversation_id,
         currentPersonaId?.apiKey
@@ -64,15 +67,15 @@ export default function page() {
 
 
   return (
-    <div className=" h-screen w-full bg-center bg-no-repeat relative">
+    <div className="h-screen w-full bg-center bg-no-repeat relative">
       {remoteParticipantIds.length > 0 ? (
         <Video
           id={remoteParticipantIds[0]}
-          className={"h-screen w-[screen] absolute top-0 left-0"}
+          className={"h-screen w-screen absolute top-0 left-0 rounded-none"}
           topClassname={"h-screen"}
         />
       ) : (
-        <div className="relative flex items-center  justify-center max-h-[calc(100vh-10px)] ">
+        <div className="relative flex items-center justify-center max-h-[calc(100vh-10px)] ">
           {/* <p className="text-2xl text-black">Waiting for others to join...</p> */}
           <Skeleton height={"100vh"} width={"100vw"} />
         </div>
@@ -94,7 +97,7 @@ export default function page() {
           toggleMicrophone={toggleMicrophone}
         />
       </div>
-      <EvaluationOfTrainingModal />
+      {/* <EvaluationOfTrainingModal /> */}
       <DailyAudio />
       <DailyAudioTrack />
     </div>

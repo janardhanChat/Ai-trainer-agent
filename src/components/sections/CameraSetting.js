@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import {
   useDevices,
   useDaily,
@@ -30,14 +30,14 @@ export const CameraSettings = ({
     setCamera,
     setSpeaker,
     refreshDevices,
+    getUserMediaError,
+    setGetUserMediaError,
   } = useDevices();
   const localSessionId = useLocalSessionId();
   const localVideo = useVideoTrack(localSessionId);
   const localAudio = useAudioTrack(localSessionId);
   const isCameraEnabled = !localVideo.isOff;
   const isMicEnabled = !localAudio.isOff;
-
-  const [getUserMediaError, setGetUserMediaError] = useState(false);
 
   useDailyEvent(
     "camera-error",
@@ -70,10 +70,10 @@ export const CameraSettings = ({
 
         {!getUserMediaError && (
           <div className="flex items-center justify-end gap-2">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center me-5">
               <button
                 onClick={toggleCamera}
-                className={`p-2.5 rounded-md text-slate-50 bg-custom-gradient `}
+                className={`p-2.5 rounded-full text-slate-50 bg-custom-gradient me-2`}
               >
                 {isCameraEnabled ? (
                   <VideoIcon className="size-5 " />
@@ -88,10 +88,10 @@ export const CameraSettings = ({
                 Icon={Video}
               />
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center me-5">
               <button
                 onClick={toggleMicrophone}
-                className={`p-2.5 rounded-md text-slate-50 bg-custom-gradient`}
+                className={`p-2.5 rounded-full text-slate-50 bg-custom-gradient me-2`}
               >
                 {isMicEnabled ? (
                   <Mic className="size-5" />
@@ -118,7 +118,7 @@ export const CameraSettings = ({
 
       <div className="flex gap-4 mt-6">
         {cancelLabel && (
-          <Button variant="outline" onClick={onCancel} className="bg-custom-gradient text-white">
+          <Button variant="outline" onClick={onCancel} className="bg-custom-gradient text-white rounded-full">
             {cancelLabel}
           </Button>
         )}
@@ -126,7 +126,7 @@ export const CameraSettings = ({
           <Button
             onClick={onAction}
             disabled={getUserMediaError || !currentCam || !currentMic}
-            className="bg-custom-gradient text-white"
+            className="bg-custom-gradient text-white rounded-full"
           >
             <span>
               <Video className="size-6 mr-2" />

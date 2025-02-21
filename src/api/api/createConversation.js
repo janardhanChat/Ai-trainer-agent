@@ -1,4 +1,5 @@
 import { TAVUS_API_KEY } from "@/config";
+import { API_BASE_URL } from "./constantsKey";
 
 export const createConversation = async (personaId) => {
   try {
@@ -11,7 +12,7 @@ export const createConversation = async (personaId) => {
       body: JSON.stringify({
         persona_id: personaId?.persona_id ?? "p9a95912",
         callback_url:
-          "https://api.ai-trainer.rejoicehub.com/api/v1/persona/webhook",
+          `${API_BASE_URL}/persona/webhook`,
         properties: {
           enable_transcription: true
         },

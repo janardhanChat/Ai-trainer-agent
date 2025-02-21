@@ -14,6 +14,7 @@ export const endConversation = async (conversationId , apiKey) => {
     );
 
     if (!response.ok) {
+      window.location.href = "/select-ai-trainer";
       throw new Error('Failed to end conversation');
     }
 

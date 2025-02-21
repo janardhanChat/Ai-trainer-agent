@@ -2,11 +2,10 @@
 
 import { API_BASE_URL } from "@/api/api/constantsKey";
 import { useConversation } from "@/contexts/ConversationContext";
-import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import React, { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import WalkGif from "@/assets/gif/Walk.gif";
+import { Loader } from "lucide-react";
 export default function page() {
   const { conversation, setConversation, currentPersonaId } = useConversation();
   const [id, setId] = useState(conversation?.conversation_id || "");
@@ -59,8 +58,8 @@ export default function page() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="flex flex-col items-center justify-center max-h-[600px] bg-page-gradient rounded-md   p-24 shadow-2xl">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#191921] p-4">
+      <div className="flex flex-col items-center justify-center max-h-[600px] bg-gradient-to-t from-[#212234] via-[#24253C] to-[#6C7EFF] rounded-md p-24 shadow-2xl">
         <div className="mb-8">
           <svg
             className="w-24 h-24"
@@ -68,17 +67,17 @@ export default function page() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="50" cy="50" r="45" stroke="#3B82F6" strokeWidth="10" />
+            <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="10" />
             <path
               d="M30 50L45 65L70 35"
-              stroke="#3B82F6"
+              stroke="white"
               strokeWidth="10"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
         </div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">
+        <h1 className="text-3xl text-white font-bold mb-8">
           Report Generator
         </h1>
         <form onSubmit={handleSubmit} className="w-full max-w-sm">
@@ -88,7 +87,7 @@ export default function page() {
             //   onChange={(e) => setId(e.target.value)}
             placeholder="Enter ID"
             disabled={true}
-            className="w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
           />
           <button
             type="submit"
@@ -100,7 +99,11 @@ export default function page() {
         </form>
         {loading && (
           <div className="mt-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 bg-custom-gradient border-blue-500"></div>
+            <div className=" flex justify-center items-center animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 bg-custom-gradient border-blue-500">
+              {loading && (
+                <Loader color="white" />
+              )}
+            </div>
           </div>
         )}
         {/* {report && (
@@ -109,13 +112,6 @@ export default function page() {
           </div>
         )} */}
       </div>
-      {loading && (
-        <img
-          src={WalkGif} 
-          alt="Loading..."
-          className="w-16 h-16"
-        />
-      )}
     </div>
   );
 }

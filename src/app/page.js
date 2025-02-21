@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
-import styles from "./page.module.css";
+// import Image from "next/image";
+// import styles from "./page.module.css";
 import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
-import SignInwithGoogle from "@/components/widgets/SignInwithGoogle";
+// import SignInwithGoogle from "@/components/widgets/SignInwithGoogle";
 import LoginImageTextSection from "@/components/sections/LoginImageTextSection";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -157,14 +157,14 @@ export default function Home() {
                 handleClick={handleSubmit}
               />
             </div>
-            <div className="grid grid-cols-[1fr_20px_1fr] gap-5 items-center pb-7">
+            {/* <div className="grid grid-cols-[1fr_20px_1fr] gap-5 items-center pb-7">
               <div className="border-t border-solid border-borderColor"></div>
               <span className="text-base text-gray900 font-medium block">
                 OR
               </span>
               <div className="border-t border-solid border-borderColor"></div>
-            </div>
-            <SignInwithGoogle />
+            </div> */}
+            {/* <SignInwithGoogle /> */}
           {/* </form> */}
         </div>
       </div>

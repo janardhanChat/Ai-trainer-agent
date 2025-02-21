@@ -10,7 +10,7 @@ import {
 export default function SelectDevice({ value, devices, onChange, Icon }) {
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className="h-10 rounded-md gap-2 bg-slate-500/70 text-white">
+      <SelectTrigger className="h-10 rounded-full gap-2 bg-slate-500/70 text-white">
         <span>
           <Icon size={16} />
         </span>

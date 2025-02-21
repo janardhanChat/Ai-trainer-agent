@@ -1,9 +1,17 @@
 import React from 'react'
 import Button from '../common/Button';
+import { removeCookie } from '@/hooks/useCookie';
+import { useRouter } from 'next/navigation';
 const ModalLayer = './images/modal-layer.png';
 const Logout = './images/logout.svg';
 
-export default function LogoutModal() {
+export default function LogoutModal({setModalOpen}) {
+    const router = useRouter();
+    const handleLogout = () => {
+        removeCookie("userInformation");
+        removeCookie("userToken");
+        router.push("/");
+    }
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-modalBlur z-[999] flex items-center justify-center'>
             <div className='bg-modalBackground overflow-hidden border border-solid border-[#2D3250] rounded-3xl w-[400px] relative'>
@@ -22,11 +30,10 @@ export default function LogoutModal() {
                     </p>
                 </div>
                 <div className='p-30 grid grid-cols-2 gap-4'>
-                    <button className='py-3 px-[26px] text-white text-lg font-semibold rounded-full border-solid border border-[#B640FF] bg-transparent'>
+                    <button className='py-3 px-[26px] text-white text-lg font-semibold rounded-full border-solid border border-[#B640FF] bg-transparent' onClick={() => setModalOpen(false)}>
                         No
                     </button>
-                    <Button text="Yes" className="py-3 w-full laptop:px-5 laptop:py-2 px-6 !text-base !font-normal font-inter" />
-
+                    <Button text="Yes" className="py-3 w-full laptop:px-5 laptop:py-2 px-6 !text-base !font-normal font-inter" handleClick={() => handleLogout()}/>
                 </div>
             </div>
         </div>

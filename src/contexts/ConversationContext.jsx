@@ -12,7 +12,6 @@ const ConversationContext = createContext();
 export const ConversationProvider = ({ children }) => {
   const router = useRouter();
   const [userInformation, setUserInformation] = useState();
-  console.log("🚀 ~ ConversationProvider ~ userInformation:", userInformation)
   const [screen, setScreen] = useState("welcome");
   const [conversation, setConversation] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -22,7 +21,6 @@ export const ConversationProvider = ({ children }) => {
     const userInfo = getCookie("userInformation");
     if (userInfo) {
       const parsedUserInformation = JSON.parse(userInfo);
-      console.log("🚀 ~ useEffect ~ userInfo:", parsedUserInformation);
       setUserInformation(parsedUserInformation);
     }
   }
@@ -35,13 +33,12 @@ export const ConversationProvider = ({ children }) => {
   useEffect(() => {
     return () => {
       if (conversation) {
-        endConversation(conversation.conversation_id);
+        endConversation(conversation.conversation_Id);
       }
     };
   }, [conversation]);
 
   const handleStart = async (personaId , userDet) => {
-    console.log("🚀 ~ handleStart ~ userDet:", userDet)
     if(!userDet || !personaId) return toast.error("User not found");
     const toastId = toast.loading("Creating conversation...");
     try {
@@ -66,7 +63,7 @@ export const ConversationProvider = ({ children }) => {
           id: toastId,
         });
         const result = await endConversation(
-          newConversation.conversation_id,
+          newConversation.conversation_Id,
           currentPersonaId?.apiKey
         );
         console.log("🚀 ~ handleStart ~ result:", result);
@@ -94,12 +91,14 @@ export const ConversationProvider = ({ children }) => {
 
   const handleEnd = async () => {
     try {
-      if (!conversation) return;
+      if (!conversation) {
+        router.push("/select-ai-trainer");
+        return;
+      }
       const result = await endConversation(
-        conversation.conversation_id,
+        conversation.conversation_Id,
         currentPersonaId?.apiKey
       );
-      console.log("🚀 ~ handleEnd ~ result:", result)
       router.push("/select-ai-trainer");
     } catch (error) {
       console.log("🚀 ~ handleEnd ~ error:", error);
