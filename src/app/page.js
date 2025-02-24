@@ -13,6 +13,7 @@ import axios from "axios";
 import { setCookie } from "@/hooks/useCookie";
 import { useConversation } from "@/contexts/ConversationContext";
 import EyeIcon from "@/assets/icons/eyeIcon";
+import { Eye } from "lucide-react";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -22,10 +23,12 @@ export default function Home() {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const {getUserInfoFromCookiee} = useConversation();
+  const { getUserInfoFromCookiee } = useConversation();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
+    setFormErrors({ ...formErrors, [name]: "" });
     setFormData({
       ...formData,
       [name]: value,
@@ -52,7 +55,7 @@ export default function Home() {
   };
 
   const handleSubmit = (e) => {
-    
+
     e.preventDefault();
     const errors = validate(formData);
     setFormErrors(errors);
@@ -85,8 +88,10 @@ export default function Home() {
             setIsSubmitting(false);
             router.push("/select-ai-trainer");
           } else {
+            console.log(data, "datadatadatadatadatadata")
             setIsSubmitting(false);
-            toast.error(data?.data?.message || "Login failed. Please try again.");
+            setFormErrors({ invaliSubError: data.response?.data?.message || "Login failed. Please try again." });
+            toast.error(data.response?.data?.message || "Login failed. Please try again.");
           }
         })
         .catch((error) => {
@@ -117,54 +122,64 @@ export default function Home() {
             }
           }}
           > */}
-            <div className="pb-6">
-              <Input
-                label="Email"
-                placeholder="Enter your email"
-                name="email"
-                value={formData.email}
-                onChange={handleOnChange}
-                error={formErrors.email} // For displaying error in the Input component
-              />
-              {formErrors.email && (
-                <p className="text-red-500 text-sm">{formErrors.email}</p>
-              )}
-            </div>
-            <div className="pb-[18px]">
-              <Input
-                label="Password"
-                placeholder="Enter your password"
-                name="password"
-                type="password"
-                icon={<EyeIcon/>}
-                value={formData.password}
-                onChange={handleOnChange}
-                error={formErrors.password} // For displaying error in the Input component
-              />
-              {formErrors.password && (
-                <p className="text-red-500 text-sm">{formErrors.password}</p>
-              )}
-            </div>
-            {/* <a className="block text-blue pb-7 text-right text-base font-semibold cursor-pointer">
+          <div className="pb-6">
+            <Input
+              label="Email"
+              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={handleOnChange}
+              error={formErrors.email} // For displaying error in the Input component
+            />
+            {formErrors.email && (
+              <p className="text-red-500 text-sm">{formErrors.email}</p>
+            )}
+          </div>
+          <div className="pb-[18px]">
+            <Input
+              label="Password"
+              placeholder="Enter your password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              icon={showPassword ? <Eye /> : <EyeIcon />}
+              iconHanlder={() => setShowPassword(!showPassword)}
+              value={formData.password}
+              onChange={handleOnChange}
+              error={formErrors.password}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubmit(e);
+                }
+              }}
+            />
+            {formErrors.password && (
+              <p className="text-red-500 text-sm">{formErrors.password}</p>
+            )}
+          </div>
+          {formErrors.invaliSubError && (
+            <p className="text-red-500 text-sm">{formErrors.invaliSubError}</p>
+          )}
+          {/* <a className="block text-blue pb-7 text-right text-base font-semibold cursor-pointer">
               Forgot password?
             </a> */}
-            <div className="pb-7 pt-3">
-              <Button
-                className="w-full"
-                text={isSubmitting ? "Logging in..." : "Login"}
-                disabled={isSubmitting} // Disable button during submission
-                type="submit"
-                handleClick={handleSubmit}
-              />
-            </div>
-            {/* <div className="grid grid-cols-[1fr_20px_1fr] gap-5 items-center pb-7">
+          <div className="pb-7 pt-3">
+            <Button
+              className="w-full"
+              text={isSubmitting ? "Logging in..." : "Login"}
+              disabled={isSubmitting} // Disable button during submission
+              type="submit"
+              handleClick={handleSubmit}
+            />
+          </div>
+          {/* <div className="grid grid-cols-[1fr_20px_1fr] gap-5 items-center pb-7">
               <div className="border-t border-solid border-borderColor"></div>
               <span className="text-base text-gray900 font-medium block">
                 OR
               </span>
               <div className="border-t border-solid border-borderColor"></div>
             </div> */}
-            {/* <SignInwithGoogle /> */}
+          {/* <SignInwithGoogle /> */}
           {/* </form> */}
         </div>
       </div>
