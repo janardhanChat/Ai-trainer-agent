@@ -19,7 +19,7 @@ export default function VideoScreenBottomBar({ handleLeave , toggleMicrophone })
             <UnmuteIcon /> */}
           <button
             onClick={toggleMicrophone}
-            className={`p-2.5 rounded-full text-slate-50 bg-[#00000024]`}
+            className={`p-2.5 rounded-full text-slate-50 bg-[#6a6a6a]`}
           >
             {isMicEnabled ? (
               <Mic className="size-10" />
