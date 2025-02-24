@@ -6,7 +6,7 @@ export default function VideoProfileInformation() {
     userInfo = JSON.parse(localStorage.getItem("userInformation"));
   }, []);
   return (
-    <button className="py-1.5 px-3 border border-solid border-whiteBorder bg-whiteOpacitybg30 cursor-pointer backdrop-blur-xl	 rounded-full flex items-center gap-2.5 text-lg text-white font-semibold">
+    <button className="py-1.5 px-4 border border-solid border-whiteBorder bg-whiteOpacitybg30 cursor-pointer backdrop-blur-xl	rounded-full flex items-center gap-2.5 text-md text-white font-semibold">
       <img src={DummyProfile} alt="DummyProfile" />
       {userInfo?.firstName ?? "User"}
     </button>

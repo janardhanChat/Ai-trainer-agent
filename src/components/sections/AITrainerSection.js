@@ -71,19 +71,24 @@ export default function AITrainerSection({
             !loading &&
             personaDeatils?.map((items, index) => {
               return (
-                <div className="bg-card-gradient border border-solid border-[#2D3250] laptop:rounded-2xl laptop:p-5 p-30 rounded-3xl" key={index}>
-                  <h3 className="text-xl text-white font-semibold mb-3 laptop:text-lg">
-                    {items?.trainerTitle}
-                  </h3>
-                  <p className="text-white leading-6 opacity-[0.6] text-base font-light mb-4 laptop:text-sm">
-                    {items?.trainerDescription}
-                  </p>
-                  {items?.code && <div className="flex items-center gap-2 flex-wrap pb-6">
-                    <button className="text-sm text-white laptop:px-5 laptop:py-1.5 font-normal transition-all ease-in-out hover:bg-transparent border border-solid  bg-whiteOpacitybg border-whiteOpacitybg rounded-full py-2 px-6">
-                      {items?.code}
-                    </button>
-                  </div>}
-                  <Button text="Digital Human" className="py-2 laptop:px-5 laptop:py-2 px-6 text-sm font-normal font-inter" handleClick={() => handleOpenmodal(items)}/>
+                <div className="bg-card-gradient border border-solid border-[#2D3250] laptop:rounded-2xl laptop:p-5 p-30 rounded-3xl flex flex-col justify-between" key={index}>
+                  <div>
+                    <h3 className="min-h-[56px] line-clamp-2 text-xl text-white font-semibold mb-3 laptop:text-lg">
+                      {/* <h3 className="line-clamp-1 text-xl text-white font-semibold mb-3 laptop:text-lg"> */}
+                      {items?.trainerTitle}
+                    </h3>
+                    <p className="text-white leading-6 line-clamp-5 opacity-[0.6] text-base font-light mb-4 laptop:text-sm">
+                      {items?.trainerDescription}
+                    </p>
+                  </div>
+                  <div>
+                    {items?.code && <div className="flex items-center gap-2 flex-wrap pb-6">
+                      <button className="text-xs text-white laptop:px-5 laptop:py-1.5 font-normal transition-all ease-in-out hover:bg-transparent border border-solid  bg-whiteOpacitybg border-whiteOpacitybg rounded-full py-2 px-6">
+                        {items?.code}
+                      </button>
+                    </div>}
+                    <Button text="Digital Human" className="py-2 laptop:px-5 laptop:py-2 px-6 text-sm font-normal font-inter float-right" handleClick={() => handleOpenmodal(items)} />
+                  </div>
                 </div>
               )
             })

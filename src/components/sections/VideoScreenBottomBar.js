@@ -14,12 +14,12 @@ export default function VideoScreenBottomBar({ handleLeave , toggleMicrophone })
   return (
     <div className="w-full">
       <div className="max-w-[1780px] px-5 mx-auto">
-        <div className="flex items-center justify-center gap-6 pb-5">
+        <div className="flex items-center justify-center pb-5">
           {/* <MuteIcon />
             <UnmuteIcon /> */}
           <button
             onClick={toggleMicrophone}
-            className={`p-2.5 rounded-full text-slate-50 bg-custom-gradient`}
+            className={`p-2.5 rounded-full text-slate-50 bg-[#6a6a6a]`}
           >
             {isMicEnabled ? (
               <Mic className="size-10" />
