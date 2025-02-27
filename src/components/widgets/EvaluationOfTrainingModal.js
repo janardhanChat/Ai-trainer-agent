@@ -8,7 +8,7 @@ export default function EvaluationOfTrainingModal() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const handleRedirect = () => {
-    router.push("/select-ai-trainer");
+    router.push("/select-personas");
   };
 
   return (

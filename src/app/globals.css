@@ -91,6 +91,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #212234 0%, #131322 100%);
+  background: #945cff;
   border-radius: 99px;
 }

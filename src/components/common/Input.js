@@ -9,7 +9,7 @@ export default function Input({ label, placeholder, onChange, value, name, icon,
       <div className="relative">
         <input
           placeholder={placeholder}
-          className="w-full h-[50px] border border-solid placeholder:font-normal transition-all ease-in-out  focus:outline-blue outline-none font-normal border-borderColor rounded-full px-5 text-base text-black placeholder:text-base placeholder:text-black placeholder:opacity-[.4]"
+          className="w-full h-[50px] border border-solid placeholder:font-normal transition-all ease-in-out  focus:outline-blue outline-none font-normal border-borderColor rounded-xl px-5 text-base text-black placeholder:text-base placeholder:text-black placeholder:opacity-[.4]"
           type={type || "text"}
           onChange={onChange}
           value={value}

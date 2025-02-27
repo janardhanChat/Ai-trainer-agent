@@ -82,11 +82,11 @@ export default function page() {
   // };
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen py-[60px]">
+    <div className="bg-[#0F0F0F] min-h-screen py-6">
       <div className="max-w-[1780px] px-5 mx-auto">
         <div className="flex gap-4 items-center justify-between pb-7">
-          <h2 className="text-[28px] laptop:text-2xl text-white font-medium leading-normal">
-            Select AI Agent
+          <h2 className="text-[28px] laptop:text-2xl text-white font-semibold leading-normal">
+            Persona AI Agent
           </h2>
           {/* <div>
             <DropdownMenuCheckboxes
@@ -98,8 +98,8 @@ export default function page() {
               setLoading={setCategoryLoading}
             />
           </div> */}
-          <button className="border-solid border border-[#B73EFF] py-2 px-8 text-white text-base font-medium rounded-full cursor-pointer" onClick={() => setOpenlogoutModal(true)}>
-          Logout
+          <button className="border-solid border border-[#B73EFF] hover:bg-[#ffffff20] transition-all py-2 px-8 text-white text-base font-medium rounded-full cursor-pointer" onClick={() => setOpenlogoutModal(true)}>
+            Logout
           </button>
         </div>
         <AITrainerSection
@@ -114,7 +114,7 @@ export default function page() {
           handleStart={handleStart}
           loading={loading}
         />
-        {openLogoutModal && <LogoutModal setModalOpen={setOpenlogoutModal}/>}
+        {openLogoutModal && <LogoutModal setModalOpen={setOpenlogoutModal} />}
       </div>
     </div>
   );

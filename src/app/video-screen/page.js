@@ -40,7 +40,7 @@ export default function page() {
   const handleEnd = async () => {
     try {
       if (!conversation) {
-        router.push("/select-ai-trainer");
+        router.push("/select-personas");
         return
       };
       await endConversation(

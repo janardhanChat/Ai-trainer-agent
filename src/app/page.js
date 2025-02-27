@@ -86,7 +86,7 @@ export default function Home() {
             getUserInfoFromCookiee();
             toast.success("Login successful!");
             setIsSubmitting(false);
-            router.push("/select-ai-trainer");
+            router.push("/select-personas");
           } else {
             console.log(data, "datadatadatadatadatadata")
             setIsSubmitting(false);
@@ -103,26 +103,21 @@ export default function Home() {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-2 gap-0 items-center h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="grid grid-cols-2 gap-0 items-center min-h-screen">
         <div className="h-screen">
           <LoginImageTextSection />
         </div>
-        <div className="max-w-[501px] mx-auto">
+        <div className="max-w-[501px] mx-auto bg-white p-8 rounded-2xl shadow-lg">
           <h1 className="text-[32px] text-black font-bold leading-[40px] mb-3">
-            Welcome to <span className="gradient-text">AI Trainer</span> ✋
+            Welcome to <span className="gradient-text animate-gradient">AI Trainer</span>
+            <span className="animate-wave inline-block">✋</span>
           </h1>
-          <p className="text-lg text-black opacity-[0.6] font-medium mb-7">
+          <p className="text-lg text-black/60 font-medium mb-7">
             Enter the information you entered while registering.
           </p>
-          {/* <form onSubmit={handleSubmit}
-           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault(); // Prevent Enter key from submitting the form
-            }
-          }}
-          > */}
-          <div className="pb-6">
+
+          <div className="space-y-6">
             <Input
               label="Email"
               placeholder="Enter your email"
@@ -130,12 +125,12 @@ export default function Home() {
               value={formData.email}
               onChange={handleOnChange}
               error={formErrors.email} // For displaying error in the Input component
+              className="focus:ring-2 focus:ring-blue-500"
             />
             {formErrors.email && (
               <p className="text-red-500 text-sm">{formErrors.email}</p>
             )}
-          </div>
-          <div className="pb-[18px]">
+
             <Input
               label="Password"
               placeholder="Enter your password"
@@ -152,37 +147,24 @@ export default function Home() {
                   handleSubmit(e);
                 }
               }}
+              className="focus:ring-2 focus:ring-blue-500"
             />
             {formErrors.password && (
               <p className="text-red-500 text-sm">{formErrors.password}</p>
             )}
           </div>
-          {formErrors.invaliSubError && (
-            <p className="text-red-500 text-sm">{formErrors.invaliSubError}</p>
-          )}
-          {/* <a className="block text-blue pb-7 text-right text-base font-semibold cursor-pointer">
-              Forgot password?
-            </a> */}
-          <div className="pb-7 pt-3">
+
+          <div className="mt-8">
             <Button
               className="w-full"
               text={isSubmitting ? "Logging in..." : "Login"}
-              disabled={isSubmitting} // Disable button during submission
+              disabled={isSubmitting}
               type="submit"
               handleClick={handleSubmit}
             />
           </div>
-          {/* <div className="grid grid-cols-[1fr_20px_1fr] gap-5 items-center pb-7">
-              <div className="border-t border-solid border-borderColor"></div>
-              <span className="text-base text-gray900 font-medium block">
-                OR
-              </span>
-              <div className="border-t border-solid border-borderColor"></div>
-            </div> */}
-          {/* <SignInwithGoogle /> */}
-          {/* </form> */}
         </div>
       </div>
-    </>
+    </div>
   );
 }

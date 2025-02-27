@@ -73,7 +73,9 @@ export const CameraSettings = ({
             <div className="flex items-center justify-center me-5">
               <button
                 onClick={toggleCamera}
-                className={`p-2.5 rounded-full text-slate-50 bg-custom-gradient me-2`}
+                className={`p-2.5 rounded-full text-slate-50 ${
+                  isCameraEnabled ? 'bg-green-600' : 'bg-red-600'
+                } me-2`}
               >
                 {isCameraEnabled ? (
                   <VideoIcon className="size-5 " />
@@ -91,7 +93,9 @@ export const CameraSettings = ({
             <div className="flex items-center justify-center me-5">
               <button
                 onClick={toggleMicrophone}
-                className={`p-2.5 rounded-full text-slate-50 bg-custom-gradient me-2`}
+                className={`p-2.5 rounded-full text-slate-50 ${
+                  isMicEnabled ? 'bg-green-600' : 'bg-red-600'
+                } me-2`}
               >
                 {isMicEnabled ? (
                   <Mic className="size-5" />
@@ -118,7 +122,7 @@ export const CameraSettings = ({
 
       <div className="flex gap-4 mt-6">
         {cancelLabel && (
-          <Button variant="outline" onClick={onCancel} className="bg-custom-gradient text-white rounded-full">
+          <Button variant="outline" onClick={onCancel} className="bg-gray-600 text-white rounded-full px-6 py-2">
             {cancelLabel}
           </Button>
         )}
@@ -126,7 +130,7 @@ export const CameraSettings = ({
           <Button
             onClick={onAction}
             disabled={getUserMediaError || !currentCam || !currentMic}
-            className="bg-custom-gradient text-white rounded-full"
+            className="bg-blue-600 text-white rounded-full px-6 py-2 disabled:bg-gray-400 flex items-center gap-2"
           >
             <span>
               <Video className="size-6 mr-2" />

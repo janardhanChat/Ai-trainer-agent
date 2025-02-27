@@ -5,37 +5,43 @@ import { useRouter } from 'next/navigation';
 const ModalLayer = './images/modal-layer.png';
 const Logout = './images/logout.svg';
 
-export default function LogoutModal({setModalOpen}) {
-    const router = useRouter();
-    const handleLogout = () => {
-        removeCookie("userInformation");
-        removeCookie("userToken");
-        router.push("/");
-    }
-    return (
-        <div className='fixed top-0 left-0 w-full h-full bg-modalBlur z-[999] flex items-center justify-center'>
-            <div className='bg-modalBackground overflow-hidden border border-solid border-[#2D3250] rounded-3xl w-[400px] relative'>
-                <div className='p-30 bg-modalsubBackground'>
-                    <div className='absolute top-0 left-0'>
-                        <img src={ModalLayer} alt='ModalLayer' className='block w-full' />
-                    </div>
-                    <div className='flex justify-center py-4'>
-                        <img src={Logout} alt='Logout' />
-                    </div>
-                    <h2 className='mt-5 mb-2.5 text-2xl text-white font-medium text-center'>
-                        Logout
-                    </h2>
-                    <p className='text-base text-white font-light text-center opacity-[.8] leading-7 max-w-[90%] mx-auto'>
-                        Are You sure want to Logout?
-                    </p>
-                </div>
-                <div className='p-30 grid grid-cols-2 gap-4'>
-                    <button className='py-3 px-[26px] text-white text-lg font-semibold rounded-full border-solid border border-[#B640FF] bg-transparent' onClick={() => setModalOpen(false)}>
-                        No
-                    </button>
-                    <Button text="Yes" className="py-3 w-full laptop:px-5 laptop:py-2 px-6 !text-base !font-normal font-inter" handleClick={() => handleLogout()}/>
-                </div>
+export default function LogoutModal({ setModalOpen }) {
+  const router = useRouter();
+  const handleLogout = () => {
+    removeCookie("userInformation");
+    removeCookie("userToken");
+    router.push("/");
+  }
+  return (
+    <div className='fixed inset-0 z-20 bg-modalbg flex items-center justify-center text-white'>
+      <div className='w-[500px]'>
+        <div className='bg-gradient-to-t from-[#212234] via-[#24253C] to-[#6C7EFF] rounded-[20px] shadow-lg'>
+          <div>
+            <img src={ModalLayer} alt='ModalLayer' className='block w-full rounded-t-[20px]' />
+          </div>
+          <div className='px-10 pb-8'>
+            <div className='flex justify-center mb-4'>
+              <img src={Logout} alt='Logout' className='w-16 h-16' />
             </div>
+            <h2 className='text-xl font-bold text-center mb-6'>
+              Logout
+            </h2>
+            <div className='flex items-center justify-center mb-8'>
+              <div className='bg-[#FFFFFF15] rounded-full px-6 py-3'>
+                <p className='text-sm text-white'>
+                  Are you sure you want to logout?
+                </p>
+              </div>
+            </div>
+            <div className='grid grid-cols-2 gap-4'>
+              <button className='py-3 px-6 text-white text-base font-medium rounded-xl border border-[#B640FF] hover:bg-[#ffffff20] transition-all' onClick={() => setModalOpen(false)}>
+                No
+              </button>
+              <Button text="Logout" className="w-full !text-base" handleClick={handleLogout} />
+            </div>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }

@@ -41,7 +41,7 @@ export default function page() {
       window.URL.revokeObjectURL(downloadUrl);
       setConversation && setConversation(null);
       setLoading(false);
-      router.push("/select-ai-trainer");
+      router.push("/select-personas");
     } catch (error) {
       setLoading(false);
       console.error("Error downloading the file:", error);
@@ -53,7 +53,7 @@ export default function page() {
   };
   useEffect(() => {
     if (!conversation) {
-      router.push("/select-ai-trainer");
+      router.push("/select-personas");
     }
   }, []);
 

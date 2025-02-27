@@ -92,14 +92,14 @@ export const ConversationProvider = ({ children }) => {
   const handleEnd = async () => {
     try {
       if (!conversation) {
-        router.push("/select-ai-trainer");
+        router.push("/select-personas");
         return;
       }
       const result = await endConversation(
         conversation.conversation_Id,
         currentPersonaId?.apiKey
       );
-      router.push("/select-ai-trainer");
+      router.push("/select-personas");
     } catch (error) {
       console.log("🚀 ~ handleEnd ~ error:", error);
       console.error(error);

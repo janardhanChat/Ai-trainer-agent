@@ -7,7 +7,7 @@ export function middleware(req) {
   // Define the protected routes
   const protectedRoutes = [
     "/health-check-screen",
-    "/select-ai-trainer",
+    "/select-personas",
     "/video-screen",
     "/generate-report",
   ];
@@ -21,7 +21,7 @@ export function middleware(req) {
   }
 
   if (req.nextUrl.pathname === "/" && userToken) {
-    return NextResponse.redirect(new URL("/select-ai-trainer", req.url));
+    return NextResponse.redirect(new URL("/select-personas", req.url));
   }
 
   // Allow access to non-protected routes or if userToken exists
