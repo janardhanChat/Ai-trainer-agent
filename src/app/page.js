@@ -77,7 +77,6 @@ export default function Home() {
 
       login()
         .then((data) => {
-          console.log("🚀 ~ .then ~ data:", data)
           if (data?.data?.success) {
             let userToken = data?.data?.payload?.tokens;
             setCookie("userToken", userToken);
@@ -88,7 +87,6 @@ export default function Home() {
             setIsSubmitting(false);
             router.push("/select-personas");
           } else {
-            console.log(data, "datadatadatadatadatadata")
             setIsSubmitting(false);
             setFormErrors({ invaliSubError: data.response?.data?.message || "Login failed. Please try again." });
             toast.error(data.response?.data?.message || "Login failed. Please try again.");
@@ -109,13 +107,10 @@ export default function Home() {
           <LoginImageTextSection />
         </div>
         <div className="max-w-[501px] mx-auto bg-white p-8 rounded-2xl shadow-lg">
-          <h1 className="text-[32px] text-black font-bold leading-[40px] mb-3">
-            Welcome to <span className="gradient-text animate-gradient">AI Trainer</span>
+          <h1 className="text-[32px] text-black font-bold leading-[40px] mb-7">
+            Welcome to <span className="gradient-text animate-gradient">Persona AI</span>
             <span className="animate-wave inline-block">✋</span>
           </h1>
-          <p className="text-lg text-black/60 font-medium mb-7">
-            Enter the information you entered while registering.
-          </p>
 
           <div className="space-y-6">
             <Input

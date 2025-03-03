@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import {
   useDevices,
   useDaily,
@@ -10,6 +10,7 @@ import {
 import { Button } from "../ui/button";
 import { Mic, Video, Volume2, VideoOff, VideoIcon, MicOff } from "lucide-react";
 import SelectDevice from "./SelectDevice";
+import toast from "react-hot-toast";
 
 
 export const CameraSettings = ({
@@ -38,10 +39,24 @@ export const CameraSettings = ({
   const localAudio = useAudioTrack(localSessionId);
   const isCameraEnabled = !localVideo.isOff;
   const isMicEnabled = !localAudio.isOff;
+  let isLoaded = false;
+
+  useEffect(() => {
+    if (!isLoaded) {
+      if (!currentCam) {
+        toast.error("No camera detected. Please connect a camera to continue.");
+      }
+      if (!currentMic) {
+        toast.error("No microphone detected. Please connect a microphone to continue.");
+      }
+      isLoaded = true;
+    }
+  }, []);
 
   useDailyEvent(
     "camera-error",
-    useCallback(() => {
+    useCallback((error) => {
+      console.log("camera error", error.error.missingMedia);
       setGetUserMediaError(true);
     }, [])
   );
@@ -73,9 +88,8 @@ export const CameraSettings = ({
             <div className="flex items-center justify-center me-5">
               <button
                 onClick={toggleCamera}
-                className={`p-2.5 rounded-full text-slate-50 ${
-                  isCameraEnabled ? 'bg-green-600' : 'bg-red-600'
-                } me-2`}
+                className={`p-2.5 rounded-full text-slate-50 ${isCameraEnabled ? 'bg-green-600' : 'bg-red-600'
+                  } me-2`}
               >
                 {isCameraEnabled ? (
                   <VideoIcon className="size-5 " />
@@ -93,9 +107,8 @@ export const CameraSettings = ({
             <div className="flex items-center justify-center me-5">
               <button
                 onClick={toggleMicrophone}
-                className={`p-2.5 rounded-full text-slate-50 ${
-                  isMicEnabled ? 'bg-green-600' : 'bg-red-600'
-                } me-2`}
+                className={`p-2.5 rounded-full text-slate-50 ${isMicEnabled ? 'bg-green-600' : 'bg-red-600'
+                  } me-2`}
               >
                 {isMicEnabled ? (
                   <Mic className="size-5" />
@@ -130,7 +143,7 @@ export const CameraSettings = ({
           <Button
             onClick={onAction}
             disabled={getUserMediaError || !currentCam || !currentMic}
-            className="bg-blue-600 text-white rounded-full px-6 py-2 disabled:bg-gray-400 flex items-center gap-2"
+            className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6 py-2 disabled:bg-gray-400 flex items-center gap-2"
           >
             <span>
               <Video className="size-6 mr-2" />

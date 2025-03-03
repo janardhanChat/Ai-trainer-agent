@@ -8,9 +8,7 @@ import { useConversation } from "@/contexts/ConversationContext";
 
 export default function page() {
   const localSessionId = useLocalSessionId();
-  console.log("[HealthCheckScreen] Local session ID:", localSessionId);
   const daily = useDaily();
-  console.log("[HealthCheckScreen] Daily instance:", daily);
   const { handleEnd, handleJoin, loading } = useConversation();
   const [getUserMediaError, setGetUserMediaError] = useState(false);
   useEffect(() => {

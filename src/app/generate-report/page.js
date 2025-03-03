@@ -6,6 +6,9 @@ import { redirect, useRouter } from "next/navigation";
 import React, { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Loader } from "lucide-react";
+
+const ModalLayer = '/images/modal-layer.png';
+
 export default function page() {
   const { conversation, setConversation, currentPersonaId } = useConversation();
   const [id, setId] = useState(conversation?.conversation_id || "");
@@ -58,54 +61,48 @@ export default function page() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#191921] p-4">
-      <div className="flex flex-col items-center justify-center max-h-[600px] bg-gradient-to-t from-[#212234] via-[#24253C] to-[#6C7EFF] rounded-md p-24 shadow-2xl">
-        <div className="mb-8">
-          <svg
-            className="w-24 h-24"
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="10" />
-            <path
-              d="M30 50L45 65L70 35"
-              stroke="white"
-              strokeWidth="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        <h1 className="text-3xl text-white font-bold mb-8">
-          Report Generator
-        </h1>
-        <form onSubmit={handleSubmit} className="w-full max-w-sm">
-          <input
-            type="text"
-            value={id}
-            //   onChange={(e) => setId(e.target.value)}
-            placeholder="Enter ID"
-            disabled={true}
-            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md bg-custom-gradient hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out"
-            disabled={loading}
-          >
-            Generate Report
-          </button>
-        </form>
-        {loading && (
-          <div className="mt-8">
-            <div className=" flex justify-center items-center animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 bg-custom-gradient border-blue-500">
-              {loading && (
-                <Loader color="white" />
-              )}
-            </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#191921]">
+      <div className="w-[500px]">
+        <div className="bg-gradient-to-t from-[#212234] via-[#24253C] to-[#6C7EFF] rounded-[20px] shadow-lg">
+          <div>
+            <img src={ModalLayer} alt='ModalLayer' className='block w-full rounded-t-[20px]' />
           </div>
-        )}
+          <div className="px-10 pb-8">
+            <div className="flex justify-center mb-4">
+              <svg className="w-16 h-16" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="10" />
+                <path d="M30 50L45 65L70 35" stroke="white" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <h2 className="text-xl font-bold text-center mb-6 text-white">Report Generator</h2>
+            <div className="flex items-center justify-center mb-8">
+              <div className="bg-[#FFFFFF15] rounded-full px-6 py-3">
+                <p className="text-sm text-white">Generate your conversation report</p>
+              </div>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={id}
+                disabled={true}
+                className="w-full px-4 py-3 bg-[#FFFFFF15] text-white border-none rounded-xl focus:outline-none mb-4"
+                placeholder="Enter ID"
+              />
+              <button
+                type="submit"
+                className="w-full disabled:opacity-50 py-3 px-6 text-white text-base font-medium rounded-xl bg-custom-gradient hover:bg-[#9933CC] transition-all"
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <Loader className="animate-spin h-4 w-4" />
+                    <span>Generating...</span>
+                  </div>
+                ) : "Generate Report"}
+              </button>
+            </form>
+          </div>
+        </div>
         {/* {report && (
           <div className="mt-8 p-4 bg-custom-gradient rounded-md shadow-md">
             <p className="text-gray-800">{report}</p>
