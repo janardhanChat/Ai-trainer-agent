@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { getCookie } from "@/hooks/useCookie";
+import { TriangleAlert } from "lucide-react";
 
 const ConversationContext = createContext();
 
@@ -78,8 +79,9 @@ export const ConversationProvider = ({ children }) => {
       });
       router.push("/health-check-screen");
     } catch (error) {
-      toast.error("Please contact the admin for assistance.", {
+      toast.error("Your session has been temporarily restricted due to system limitations. Please contact the admin for further assistance.", {
         id: toastId,
+        icon: <TriangleAlert size={60} fill="#fcca31" />,
       });
       setLoading(false);
     } finally {
