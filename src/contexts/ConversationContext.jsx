@@ -44,6 +44,8 @@ export const ConversationProvider = ({ children }) => {
     try {
       setLoading(true);
       const newConversation = await createConversation(personaId);
+      console.log(newConversation);
+      
       if (!userDet || newConversation.error) {
         toast.error("Something went wrong. Check the console for details.", {
           id: toastId,
@@ -76,13 +78,9 @@ export const ConversationProvider = ({ children }) => {
       });
       router.push("/health-check-screen");
     } catch (error) {
-      console.error(error);
-      toast.error(
-        error.message || "Something went wrong. Check the console for details.",
-        {
-          id: toastId,
-        }
-      );
+      toast.error("Please contact the admin for assistance.", {
+        id: toastId,
+      });
       setLoading(false);
     } finally {
       setLoading(false);
