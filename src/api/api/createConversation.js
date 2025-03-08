@@ -13,6 +13,7 @@ export const createConversation = async (personaId) => {
         persona_id: personaId?.persona_id ?? "p9a95912",
         callback_url:
           `${API_BASE_URL}/persona/webhook`,
+        replica_id : "r8bfa69a42",
         properties: {
           enable_transcription: true
         },
